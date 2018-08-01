@@ -1,1 +1,1 @@
-# sijalan
+# diskominfo

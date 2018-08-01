@@ -1,0 +1,24 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Main extends CI_Controller {
+
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->blade->sebarno('ctrl', $this);
+		$this->load->model('m_config');
+		$this->load->model('m_user');
+		$this->data['config'] = $this->m_config->ambil('config',1)->row();
+	}
+
+	public function index()
+    {
+		$data           = $this->data;
+		$data['menu']   = "home";
+		echo $this->blade->nggambar('main.index',$data);
+	}
+}
+
+/* End of file Main.php */
+/* Location: ./application/controllers/Main.php */
