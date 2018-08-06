@@ -72,12 +72,15 @@
 
 		<div class="navbar-collapse collapse" id="navbar-second-toggle">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="index.html"><i class="icon-display4 position-left"></i> Dashboard</a></li>
+				<li class="active"><a href="index.html"><i class="icon-display4 position-left"></i> Master</a></li>
+				<li class=""><a href="index.html"><i class="icon-display4 position-left"></i> Input Ruas Jalan</a></li>
+				<li class=""><a href="index.html"><i class="icon-display4 position-left"></i> Data Ruas Jalan</a></li>
+				<li class=""><a href="index.html"><i class="icon-display4 position-left"></i> Laporan</a></li>
 
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-strategy position-left"></i> Starter kit <span class="caret"></span>
+						<i class="icon-strategy position-left"></i> Akun <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu width-200">

@@ -18,36 +18,39 @@ Dashboard - Administrasi
 				<div class="panel panel-flat">
 					
 					<div class="panel-body">
-					<form class="form-horizontal" action="#">
+	                @foreach($user as $key => $result)
+					<form class="form-horizontal" action="{{base_url('main/update/').$result->id_user}}" method="post">
 							<fieldset class="content-group">
 								<legend class="text-bold">Edit Data</legend>
 
 								<div class="form-group">
 									<label class="control-label col-lg-2">Name</label>
 									<div class="col-lg-10">
-										<input type="text" name="name" maxlength="30" required="" class="form-control">
+										<input type="text" name="name" value="{{$result->nm_user}}" maxlength="30" required="" class="form-control">
 									</div>
 								</div>
 
 								<div class="form-group">
 									<label class="control-label col-lg-2">Email</label>
 									<div class="col-lg-10">
-										<input type="email" name="email" class="form-control" required="">
+										<input type="email" name="email" value="{{$result->email}}" class="form-control" required="">
 									</div>
 								</div>
 
 		                        <div class="form-group">
 		                        	<label class="control-label col-lg-2">Role</label>
 		                        	<div class="col-lg-10">
-			                            <select name="select" class="form-control">
-			                                <option value="opt6">Peserta</option>
-			                                <option value="opt7">Kominfo</option>
-			                                <option value="opt8">Admin</option>
+			                            <select name="role" class="form-control">
+			                                <option value="peserta" <?=$result->role == 'peserta' ?'selected' : ''?>>Peserta</option>
+			                                <option value="kominfo" <?=$result->role == 'kominfo' ?'selected' : ''?>>Kominfo</option>
+			                                <option value="admin" <?=$result->role == 'admin' ?'selected' : ''?>>Admin</option>
 			                            </select>
 		                            </div>
 		                        </div>
+					<button type="submit" class="btn btn-primary btn-xs">Edit <i class="icon-arrow-right14 position-right"></i></button>
 							</fieldset>
 						</form>
+	                    @endforeach
 				</div>	
 				</div>	
 				<!-- /page content -->

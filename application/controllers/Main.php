@@ -54,10 +54,34 @@ class Main extends CI_Controller {
 
 	function edit($id_user)
 	{
+		$where = array('id_user'=>$id_user);
 		$data           = $this->data;
-		$data['user']   = $this->m_user->tampil_data('user')->result();
+		$data['user']   = $this->m_user->detail($where,'user')->result();
 		$data['menu']   = "home";
 		echo $this->blade->nggambar('user.edit',$data);
+	}
+
+	function update($id_user)
+	{
+		$name  = $this->input->post('name');
+		$email = $this->input->post('email');
+		$role  = $this->input->post('role');
+		$pass  = md5('password');
+
+		$data = array(
+			"nm_user"  => $name,
+			"email"    => $email,
+			"role"     => $role,
+			"password" => $pass
+		);
+
+		$where = array('id_user'=>$id_user); 
+
+		$simpan = $this->m_user->update_data($where,$data,'user');
+
+	    echo "<script>alert('Edit Succees');</script>";
+
+		redirect('main/user','refresh');
 	}
 }
 

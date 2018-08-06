@@ -107,11 +107,13 @@ Dashboard - Administrasi
 								<td>{{$result->nm_user}}</td>
 								<td>{{$result->email}}</td>
 								<td>
-		                        	{{-- @if($result->role==admin)
+									<?php if ($result->role == 'admin'){ ?>
 									<span class="label label-danger">{{$result->role}}</span>
-		                        	@else
+									<?php }elseif($result->role == 'kominfo') { ?>
 									<span class="label label-primary">{{$result->role}}</span>
-		                        	@endif --}}
+									<?php }else{ ?>
+									<span class="label label-success">{{$result->role}}</span>
+									<?php } ?>
 	                        	</td>
 								<td class="text-center">
 									<ul class="icons-list">
