@@ -9,6 +9,7 @@ class Main extends CI_Controller {
 		$this->blade->sebarno('ctrl', $this);
 		$this->load->model('m_config');
 		$this->load->model('m_user');
+        $this->load->model('m_jalan');
 		$this->data['config'] = $this->m_config->ambil('config',1)->row();
 	}
 
@@ -83,6 +84,24 @@ class Main extends CI_Controller {
 
 		redirect('main/user','refresh');
 	}
+
+	function ruasjalan(){
+        $data           = $this->data;
+        $data['jalan']  = $this->m_jalan->tampil_data('jalan')->result();
+        $data['menu']   = "ruasjalan";
+        echo $this->blade->nggambar('main.ruasjalan.index',$data);
+    }
+
+    function detailjalan(){
+        $data           = $this->data;
+        $data['jalan']  = $this->m_jalan->tampil_data('jalan')->result();
+        $data['menu']   = "ruasjalan";
+        echo $this->blade->nggambar('main.ruasjalan.detail',$data);
+    }
+
+    function laporan(){
+        echo "laporan";
+    }
 }
 
 /* End of file Main.php */

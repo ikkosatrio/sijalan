@@ -16500,8 +16500,10 @@ thead .htCollapseButton:after {
   max-width: none;
   border-collapse: separate;
 }
+
+
 .dataTable thead {
-  background: #263238;
+  background: #368ee0;
   color: #fff;
 }
 .dataTable thead th,

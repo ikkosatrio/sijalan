@@ -30,8 +30,7 @@
 	<!-- Main navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
-
+			<a class="navbar-brand" href="{{base_url('main')}}"><img src="{{base_url()}}assets/images/website/config/logo/{{$config->logo}}" alt=""></a>
 			<ul class="nav navbar-nav pull-right visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
 			</ul>
@@ -42,7 +41,7 @@
 
 			</ul>
 
-			<p class="navbar-text"><span class="label bg-success-400">Online</span></p>
+			<p class="navbar-text"><span class="label bg-success-400">PEMETAAN LAMONGAN</span></p>
 
 			<ul class="nav navbar-nav navbar-right">
 
@@ -72,46 +71,18 @@
 
 		<div class="navbar-collapse collapse" id="navbar-second-toggle">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="index.html"><i class="icon-display4 position-left"></i> Master</a></li>
-				<li class=""><a href="index.html"><i class="icon-display4 position-left"></i> Input Ruas Jalan</a></li>
-				<li class=""><a href="index.html"><i class="icon-display4 position-left"></i> Data Ruas Jalan</a></li>
-				<li class=""><a href="index.html"><i class="icon-display4 position-left"></i> Laporan</a></li>
+				<li class="active"><a href="{{base_url('main')}}"><i class="icon-display4 position-left"></i> Home</a></li>
+{{--				<li class=""><a href="{{base_url('main')}}"><i class="icon-display4 position-left"></i> Input Ruas Jalan</a></li>--}}
+				<li class=""><a href="{{base_url('main/ruasjalan')}}"><i class="icon-display4 position-left"></i> Data Ruas Jalan</a></li>
+				<li class=""><a href="{{base_url('main/laporan')}}"><i class="icon-display4 position-left"></i> Laporan</a></li>
 
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-strategy position-left"></i> Akun <span class="caret"></span>
+						<i class="icon-users position-left"></i> Akun <span class="caret"></span>
 					</a>
 
 					<ul class="dropdown-menu width-200">
-						<li class="dropdown-header">Basic layouts</li>
-						<li class="dropdown-submenu">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-grid2"></i> Columns</a>
-							<ul class="dropdown-menu">
-								<li class="dropdown-header highlight">Options</li>
-								<li><a href="starters/1_col.html">One column</a></li>
-								<li><a href="starters/2_col.html">Two columns</a></li>
-								<li class="dropdown-submenu">
-									<a href="#">Three columns</a>
-									<ul class="dropdown-menu">
-										<li class="dropdown-header highlight">Sidebar position</li>
-										<li><a href="starters/3_col_dual.html">Dual sidebars</a></li>
-										<li><a href="starters/3_col_double.html">Double sidebars</a></li>
-									</ul>
-								</li>
-								<li><a href="starters/4_col.html">Four columns</a></li>
-							</ul>
-						</li>
-						<li class="dropdown-submenu">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-paragraph-justify3"></i> Navbars</a>
-							<ul class="dropdown-menu">
-								<li class="dropdown-header highlight">Fixed navbars</li>
-								<li><a href="starters/layout_navbar_fixed_main.html">Fixed main navbar</a></li>
-								<li><a href="starters/layout_navbar_fixed_secondary.html">Fixed secondary navbar</a></li>
-								<li><a href="starters/layout_navbar_fixed_both.html">Both navbars fixed</a></li>
-							</ul>
-						</li>
-						<li class="dropdown-header">Optional layouts</li>
 						<li><a href="starters/layout_boxed.html"><i class="icon-align-center-horizontal"></i> Fixed width</a></li>
 						<li><a href="starters/layout_sidebar_sticky.html"><i class="icon-flip-vertical3"></i> Sticky sidebar</a></li>
 					</ul>
