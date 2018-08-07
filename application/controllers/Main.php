@@ -25,65 +25,67 @@ class Main extends CI_Controller {
 	public function user()
     {
 		$data           = $this->data;
-		$data['user']   = $this->m_user->tampil_data('user')->result();
+		$data['user']   = $this->m_user->tampil_data('user_auth')->result();
 		$data['menu']   = "home";
-		echo $this->blade->nggambar('user.index',$data);
+		echo $this->blade->nggambar('main/user.index',$data);
 	}
 
 	public function adduser()
 	{
 		$name  = $this->input->post('name');
-		$email = $this->input->post('email');
 		$role  = $this->input->post('role');
-		$pass  = md5('password');
+		$pass  = $this->input->post('pass');
 
 		$data = array(
-			"nm_user"  => $name,
-			"email"    => $email,
-			"role"     => $role,
-			"password" => $pass
+			"user_auth_name"  => $name,
+			"user_auth_level" => $role,
+			"user_auth_pass"  => $pass
 		);
 
-		$simpan = $this->m_user->input_data($data,'user');
-
-		if ($simpan) {
-		$arrayResponse = array('Code' => "Succees",'Message' => "Succees", );
-			echo json_encode($arrayResponse);
-		}else{
-		$arrayResponse = array('Code' => "Error",'Message' => "Failed", );
-			echo json_encode($arrayResponse);
-		}
+		$simpan = $this->m_user->input_data($data,'user_auth');
+		echo "<script>alert('Succees');</script>";
+		redirect('main/user','refresh');
+		// if ($simpan) {
+		// $arrayResponse = array('Code' => "Succees",'Message' => "Succees", );
+		// 	echo json_encode($arrayResponse);
+		// }else{
+		// $arrayResponse = array('Code' => "Error",'Message' => "Failed", );
+		// 	echo json_encode($arrayResponse);
+		// }
 	}
 
 	function edit($id_user)
 	{
-		$where = array('id_user'=>$id_user);
-		$data           = $this->data;
-		$data['user']   = $this->m_user->detail($where,'user')->result();
-		$data['menu']   = "home";
-		echo $this->blade->nggambar('user.edit',$data);
+		$where = array('user_auth_id'=>$id_user);
+		$data         = $this->data;
+		$data['user'] = $this->m_user->detail($where,'user_auth')->result();
+		$data['menu'] = "home";
+		echo $this->blade->nggambar('main/user.edit',$data);
 	}
 
 	function update($id_user)
 	{
 		$name  = $this->input->post('name');
-		$email = $this->input->post('email');
 		$role  = $this->input->post('role');
-		$pass  = md5('password');
+		$pass  = $this->input->post('pass');
 
 		$data = array(
-			"nm_user"  => $name,
-			"email"    => $email,
-			"role"     => $role,
-			"password" => $pass
+			"user_auth_name"  => $name,
+			"user_auth_level" => $role,
+			"user_auth_pass"  => $pass
 		);
 
-		$where = array('id_user'=>$id_user); 
+		$where = array('user_auth_id'=>$id_user); 
+		$this->m_user->update_data($where,$data,'user_auth');
+	    echo "<script>alert('Succees');</script>";
+		redirect('main/user','refresh');
+	}
 
-		$simpan = $this->m_user->update_data($where,$data,'user');
-
-	    echo "<script>alert('Edit Succees');</script>";
-
+	function delete($id_user)
+	{
+		$where = array('user_auth_id'=>$id_user); 
+		$this->m_user->hapus_data($where,'user_auth');	
+		echo "<script>alert('Succees');</script>";
 		redirect('main/user','refresh');
 	}
 

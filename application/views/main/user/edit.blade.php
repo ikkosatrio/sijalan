@@ -19,34 +19,34 @@ Dashboard - Administrasi
 					
 					<div class="panel-body">
 	                @foreach($user as $key => $result)
-					<form class="form-horizontal" action="{{base_url('main/update/').$result->id_user}}" method="post">
+					<form class="form-horizontal" action="{{base_url('main/update/').$result->user_auth_id}}" method="post">
 							<fieldset class="content-group">
 								<legend class="text-bold">Edit Data</legend>
 
 								<div class="form-group">
 									<label class="control-label col-lg-2">Name</label>
 									<div class="col-lg-10">
-										<input type="text" name="name" value="{{$result->nm_user}}" maxlength="30" required="" class="form-control">
+										<input type="text" name="name" value="{{$result->user_auth_name}}" maxlength="30" required="" class="form-control">
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="control-label col-lg-2">Email</label>
+									<label class="control-label col-lg-2">Password</label>
 									<div class="col-lg-10">
-										<input type="email" name="email" value="{{$result->email}}" class="form-control" required="">
+										<input type="password" name="pass" value="{{$result->user_auth_pass}}" class="form-control" required="">
 									</div>
 								</div>
 
-		                        <div class="form-group">
-		                        	<label class="control-label col-lg-2">Role</label>
-		                        	<div class="col-lg-10">
-			                            <select name="role" class="form-control">
-			                                <option value="peserta" <?=$result->role == 'peserta' ?'selected' : ''?>>Peserta</option>
-			                                <option value="kominfo" <?=$result->role == 'kominfo' ?'selected' : ''?>>Kominfo</option>
-			                                <option value="admin" <?=$result->role == 'admin' ?'selected' : ''?>>Admin</option>
-			                            </select>
-		                            </div>
-		                        </div>
+                <div class="form-group">
+                	<label class="control-label col-lg-2">Role</label>
+                	<div class="col-lg-10">
+                      <select name="role" class="form-control">
+                          <option value="USR" <?=$result->user_auth_level == 'USR' ?'selected' : ''?>>Peserta</option>
+                          <option value="KOM" <?=$result->user_auth_level == 'KOM' ?'selected' : ''?>>Kominfo</option>
+                          <option value="ADM" <?=$result->user_auth_level == 'ADM' ?'selected' : ''?>>Admin</option>
+                      </select>
+                    </div>
+                </div>
 					<button type="submit" class="btn btn-primary btn-xs">Edit <i class="icon-arrow-right14 position-right"></i></button>
 							</fieldset>
 						</form>

@@ -23,13 +23,10 @@ Dashboard - Administrasi
 								<div class="col-sm-6">
 									<label>Name</label>
 									<input type="text" name="name" placeholder="Your name" class="form-control" required="">
-									<span class="help-block">Your name</span>
 								</div>
-
 								<div class="col-sm-6">
-									<label>Email</label>
-									<input type="email" name="email" placeholder="eugene@kopyov.com" class="form-control" required="">
-									<span class="help-block">name@domain.com</span>
+									<label>Password</label>
+									<input type="password" name="pass" placeholder="Password" class="form-control" required="">
 								</div>
 							</div>
 						</div>
@@ -38,9 +35,9 @@ Dashboard - Administrasi
 								<div class="col-sm-12">
 									<label>Role</label>
 									<select class="select form-control" name="role" required="">
-										<option value="peserta">Peserta</option>
-										<option value="kominfo">Kominfo</option>
-										<option value="admin">Admin</option>
+										<option value="USR">Peserta</option>
+										<option value="KOM">Kominfo</option>
+										<option value="ADM">Admin</option>
 									</select>
 								</div>
 							</div>
@@ -94,7 +91,6 @@ Dashboard - Administrasi
 								<th>No</th>
 								<th>Id User</th>
 								<th>Name</th>
-								<th>Email</th>
 								<th>Role</th>
 								<th class="text-center">Actions</th>
 							</tr>
@@ -103,16 +99,15 @@ Dashboard - Administrasi
 	                    	@foreach($user as $key => $result)
 							<tr>
 								<td>{{($key+1)}}</td>
-								<td>{{$result->id_user}}</td>
-								<td>{{$result->nm_user}}</td>
-								<td>{{$result->email}}</td>
+								<td>{{$result->user_auth_id}}</td>
+								<td>{{$result->user_auth_name}}</td>
 								<td>
-									<?php if ($result->role == 'admin'){ ?>
-									<span class="label label-danger">{{$result->role}}</span>
-									<?php }elseif($result->role == 'kominfo') { ?>
-									<span class="label label-primary">{{$result->role}}</span>
+									<?php if($result->user_auth_level == 'ADM'){ ?>
+									<span class="label label-danger">{{$result->user_auth_level}}</span>
+									<?php }elseif($result->user_auth_level == 'KOM'){ ?>
+									<span class="label label-success">{{$result->user_auth_level}}</span>
 									<?php }else{ ?>
-									<span class="label label-success">{{$result->role}}</span>
+									<span class="label label-primary">{{$result->user_auth_level}}</span>
 									<?php } ?>
 	                        	</td>
 								<td class="text-center">
@@ -123,8 +118,8 @@ Dashboard - Administrasi
 											</a>
 
 											<ul class="dropdown-menu dropdown-menu-right">
-												<li><a href="{{base_url('main/edit/').$result->id_user}}"><i class="icon-pencil"></i>Edit</a></li>
-												<li><a href="#" class="hapus"><i class="icon-trash"></i>Delete</a></li>
+												<li><a href="{{base_url('main/edit/').$result->user_auth_id}}"><i class="icon-pencil"></i>Edit</a></li>
+												<li><a href="{{base_url('main/delete/').$result->user_auth_id}}" class="hapus"><i class="icon-trash"></i>Delete</a></li>
 											</ul>
 										</li>
 									</ul>
