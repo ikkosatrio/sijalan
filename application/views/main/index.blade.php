@@ -10,25 +10,15 @@ Dashboard - Administrasi
 @section('content')
 	<div class="content-wrapper">
 
-				<!-- Page header -->
-				<div class="page-header page-header-default">
-					<div class="breadcrumb-line">
-						<ul class="breadcrumb">
-							<li><a href="{{base_url('main/kuesioner')}}"><i class="icon-home2 position-left"></i> Home</a></li>
-							<li class="active"><a href="#">Kuesioner</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /page header -->
 
 
 				<!-- Content area -->
 				<div class="content">
 					<!-- Dashboard content -->
 					<div class="row">
-						<div class="col-lg-8">
-
-
+						<div class="col-lg-12">
+						<h1 align="center">SELAMAT DATANG DI PUBM LAMONGAN</h1>
+							<br>
 							<!-- Quick stats boxes -->
 							<div class="row">
 								<div class="col-lg-4">
@@ -108,16 +98,7 @@ Dashboard - Administrasi
 							<!-- /quick stats boxes -->
 						</div>
 
-						<div class="col-lg-4">
 
-
-
-
-
-
-
-
-						</div>
 					</div>
 					<!-- /dashboard content -->
 				</div>

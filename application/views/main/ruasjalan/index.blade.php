@@ -67,13 +67,12 @@ Dashboard - Administrasi
 									<button type="button" class="btn btn-primary btn-sm btn-rounded dropdown-toggle" data-toggle="dropdown"><i class="icon-cog5 position-left"></i> Action <span class="caret"></span></button>
 									<ul class="dropdown-menu dropdown-menu-right">
 										<li>
-											<a href="{{base_url('superuser/responden/update/'.$row->jalan_id)}}">
-												<i class="fa fa-edit"></i> Detail Ruas Jalan
+											<a href="{{base_url('main/detailjalan/'.$row->jalan_id)}}">
+												<i class="fa fa-map-o" aria-hidden="true"></i> Detail Ruas Jalan
 											</a>
 										</li>
-										<li><a href="javascript:void(0)" onclick="deleteIt(this)"
-											   data-url="{{base_url('superuser/responden/deleted/'.$row->jalan_id)}}">
-												<i class="fa fa-trash"></i> Informasi Ruas
+										<li><a href="{{base_url('main/detailjalan/'.$row->jalan_id)}}">
+												<i class="icon-file-presentation"></i> Informasi Ruas
 											</a>
 										</li>
 									</ul>

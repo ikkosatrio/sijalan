@@ -10,6 +10,8 @@ class Main extends CI_Controller {
 		$this->load->model('m_config');
 		$this->load->model('m_user');
         $this->load->model('m_jalan');
+        $this->load->model('m_jalanpointer');
+        $this->load->model('m_jalankondisi');
 		$this->data['config'] = $this->m_config->ambil('config',1)->row();
 	}
 
@@ -92,9 +94,14 @@ class Main extends CI_Controller {
         echo $this->blade->nggambar('main.ruasjalan.index',$data);
     }
 
-    function detailjalan(){
+    function detailjalan($id_jalan){
         $data           = $this->data;
-        $data['jalan']  = $this->m_jalan->tampil_data('jalan')->result();
+        $where = array("jalan_id" => $id_jalan);
+
+        $data['jalan']  = $this->m_jalan->detail($where,'jalan')->row();
+
+        $data['jalanpointer']  = $this->m_jalanpointer->detail($where,'jalan_pointer')->result();
+        $data['jalanruas']  = $this->m_jalankondisi->detail($where,'jalan_kondisi')->result();
         $data['menu']   = "ruasjalan";
         echo $this->blade->nggambar('main.ruasjalan.detail',$data);
     }

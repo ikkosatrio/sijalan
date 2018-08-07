@@ -10,6 +10,7 @@
 	<link rel="shortcut icon" type="image/png" href="{{base_url()}}assets/images/website/config/icon/{{$config->icon}}"/>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="{{base_url()}}assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="{{base_url()}}assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css">
 	<link href="{{base_url()}}assets/css/bootstrap.css" rel="stylesheet" type="text/css">
 	<link href="{{base_url()}}assets/css/core.css" rel="stylesheet" type="text/css">
 	<link href="{{base_url()}}assets/css/components.css" rel="stylesheet" type="text/css">
@@ -18,6 +19,7 @@
 	<link href="{{base_url()}}assets/css/custom2.css" rel="stylesheet" type="text/css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="{{base_url()}}assets/js/core/libraries/jquery.min.js"></script>
+	@yield("mainjs")
 	<!-- /global stylesheets -->
 	@yield('style')
 	<!-- Core JS files -->
@@ -92,6 +94,7 @@
 	</div>
 	<!-- /second navbar -->
 
+	@yield('header')
 
 	<!-- Page container -->
 	<div class="page-container">
