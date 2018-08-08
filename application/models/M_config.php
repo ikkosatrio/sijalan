@@ -20,6 +20,11 @@ class M_config extends CI_Model {
 		$this->db->update($table,$data);
 	}
 
+	function tampil_laporan($table){
+		$this->db->from($table);
+		return $query = $this->db->get();
+	}
+
 }
 
 /* End of file M_config.php */
