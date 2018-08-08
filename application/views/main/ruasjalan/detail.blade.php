@@ -3,7 +3,16 @@
 Dashboard - Administrasi
 @endsection
 @section('style')
-	
+	#legend {
+		font-family: Arial, sans-serif;
+		padding: 4px;
+		margin: 4px;
+		color:#FFF;
+		text-shadow:2px 2px 2px #000;
+		-webkit-box-shadow: -1px 1px 2px 0px rgba(256, 256, 256, 0.75);
+		-moz-box-shadow: -1px 1px 2px 0px rgba(256, 256, 256, 0.75);
+		box-shadow: -1px 1px 2px 0px rgba(256, 256, 256, 0.75);
+	}
 @endsection
 
 
@@ -27,10 +36,14 @@ Dashboard - Administrasi
         });
         var legend = document.getElementById('legend');
         var div = document.createElement('div');
-        div.innerHTML = '<p>HALLO TEST</p>';
+        div.innerHTML = '<h1>HALLO TEST</h1>';
         legend.appendChild(div);
+        console.log(legend);
         settingpeta.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
         peta = new google.maps.Map(document.getElementById("map"),settingpeta);
+
+        func
 	</script>
 @endsection
 
@@ -182,6 +195,7 @@ Dashboard - Administrasi
 			<div class="col-lg-6">
 
 				<div id="map" style="width:100%;height:600px;"></div>
+				<div id="legend"></div>
 			</div>
 		</div>
 

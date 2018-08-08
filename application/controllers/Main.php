@@ -111,6 +111,7 @@ class Main extends CI_Controller {
     function laporan(){
         echo "laporan";
     }
+
 }
 
 /* End of file Main.php */
