@@ -109,7 +109,10 @@ class Main extends CI_Controller {
     }
 
     function laporan(){
-        echo "laporan";
+		$data            = $this->data;
+		$data['laporan'] = $this->m_config->tampil_laporan('jalan')->result();
+		$data['menu']    = "home";
+		echo $this->blade->nggambar('main/laporan.index',$data);
     }
 
 }
