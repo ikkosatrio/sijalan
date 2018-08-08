@@ -26,7 +26,7 @@ $(function() {
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         language: {
             search: '<span>Cari:</span> _INPUT_',
-            lengthMenu: '<span>Tampilkan:</span> _MENU_',
+            lengthMenu: '<span>:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
         },
         drawCallback: function () {

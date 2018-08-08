@@ -12,6 +12,8 @@ class Main extends CI_Controller {
         $this->load->model('m_jalan');
         $this->load->model('m_jalanpointer');
         $this->load->model('m_jalankondisi');
+        $this->load->model('m_jalankondisidetail');
+
 		$this->data['config'] = $this->m_config->ambil('config',1)->row();
 	}
 
@@ -113,6 +115,68 @@ class Main extends CI_Controller {
 		$data['laporan'] = $this->m_config->tampil_laporan('jalan')->result();
 		$data['menu']    = "home";
 		echo $this->blade->nggambar('main/laporan.index',$data);
+    }
+
+    function ruasmap($idjalan,$idruas){
+
+	    if (!$idjalan && !$idruas){
+            echo goResult(417,"Id jalan and Id Ruas tidak ditemukan");
+            return;
+        }
+
+        $where = array(
+            'jalan_kondisi_detail.jalan_id' => $idjalan,
+            'jalan_kondisi_detail.jalan_kondisi_id' => $idruas
+        );
+
+	    $data = $this->m_jalankondisidetail->ruaskondisi($where,'jalan_kondisi_detail')->result();
+
+        $arrData = array();
+        foreach ($data as $row){
+            $arrData[] = $row;
+        }
+
+        echo goResult(200,"Success",$arrData);
+        return;
+    }
+
+    function detailmap($id){
+//	    $id = $_POST['id'];
+//        echo $id;
+	    if (!$id){
+	        echo goResult(417,"Error");
+	        return;
+        }
+
+	    $where = array(
+	        'jalan_pointer.jalan_id' => $id
+        );
+
+	    $data = $this->m_jalan->detailmap($where,'jalan')->result();
+
+	    $arrData = array();
+	    foreach ($data as $row){
+            $arrData[] = array(
+                "lat" => $row->jalan_pointer_lat,
+                "lng" => $row->jalan_pointer_lng,
+                "jalan_pointer_km" => $row->jalan_pointer_km
+            );
+        }
+
+        echo goResult(200,"Success",$arrData);
+        return;
+	}
+
+	function fotojalan($id){
+        $data            = $this->data;
+        $data['menu']    = "foto";
+
+        $where = array(
+            'jalan_id' => $id
+        );
+        $data['photos'] = $this->m_jalan->getfoto($where,'jalan_foto')->result();
+
+        echo $this->blade->nggambar('main/photo.index',$data);
     }
 
 }

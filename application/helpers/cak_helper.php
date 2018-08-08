@@ -81,9 +81,16 @@ if ( ! function_exists('read_more'))
 
 if (! function_exists('goResult')){
 
-	function goResult($def,$msg){
-    	$data['auth'] 	= $def;
-		$data['msg'] 	= $msg;
+	function goResult($code,$msg = "Sukses",$arr = array()){
+
+	    $data['Meta'] = array(
+	      "Code" => $code,
+          "Message" => $msg
+        );
+
+	    if ($arr) {
+            $data['Data'] = $arr;
+        }
 		return toJson($data);
     }
 }

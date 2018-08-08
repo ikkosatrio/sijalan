@@ -3,16 +3,18 @@
 Dashboard - Administrasi
 @endsection
 @section('style')
-	#legend {
-		font-family: Arial, sans-serif;
-		padding: 4px;
-		margin: 4px;
-		color:#FFF;
-		text-shadow:2px 2px 2px #000;
-		-webkit-box-shadow: -1px 1px 2px 0px rgba(256, 256, 256, 0.75);
-		-moz-box-shadow: -1px 1px 2px 0px rgba(256, 256, 256, 0.75);
-		box-shadow: -1px 1px 2px 0px rgba(256, 256, 256, 0.75);
-	}
+	<style>
+		#legend {
+			font-family: Arial, sans-serif;
+			padding: 4px;
+			margin: 4px;
+			color:#FFF;
+			text-shadow:2px 2px 2px #000;
+			-webkit-box-shadow: -1px 1px 2px 0px rgba(256, 256, 256, 0.75);
+			-moz-box-shadow: -1px 1px 2px 0px rgba(256, 256, 256, 0.75);
+			box-shadow: -1px 1px 2px 0px rgba(256, 256, 256, 0.75);
+		}
+	</style>
 @endsection
 
 
@@ -29,22 +31,125 @@ Dashboard - Administrasi
 	<script type="text/javascript" src="{{base_url()}}assets/js/plugins/tables/datatables/datatables.min.js"></script>
 	<script type="text/javascript" src="{{base_url()}}assets/js/pages/datatables_basic.js"></script>
 	<script>
-        var settingpeta = new google.maps.Map(document.getElementById('map'), {
+        var peta = new google.maps.Map(document.getElementById('map'), {
             zoom: 24,
             center: {lat: -7.120311558236223, lng:112.41561233997345},
             mapTypeId: google.maps.MapTypeId.SATELLITE
         });
+
+        //Draw Line
+        $.ajax({
+            url: "{{base_url("main/detailmap/").$jalan->jalan_id}}",
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            beforeSend: function(){
+                }
+            })
+            .done(function(data){
+                if (data.Meta.Code == 200){
+                    var datas = data.Data;
+                    var datasCoordinates = [];
+                    peta.setCenter(new google.maps.LatLng(datas[0].lat, datas[0].lng));
+                    for (var i = 0;i<datas.length;i++){
+                        var latlng = new google.maps.LatLng(datas[i].lat,datas[i].lng);
+                        datasCoordinates.push(latlng);
+                        var text = i+1+". KM : "+datas[i].jalan_pointer_km+","+datas[i].lat+","+datas[i].lng;
+                        drawMarker(latlng,i,text);
+                    }
+                    drawRute(datasCoordinates);
+                }
+            })
+            .fail(function() {
+                console.log("salah");
+            });
+
         var legend = document.getElementById('legend');
         var div = document.createElement('div');
-        div.innerHTML = '<h1>HALLO TEST</h1>';
+        div.innerHTML = '<p>{{$jalan->jalan_no_ruas}}</p><p style="margin-top:-7px;"><?php echo "Panjang : {$jalan->jalan_panjang2} KM";?></p>';
         legend.appendChild(div);
         console.log(legend);
-        settingpeta.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+        peta.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 
-        peta = new google.maps.Map(document.getElementById("map"),settingpeta);
 
-        func
-	</script>
+        function drawRute(rute) {
+            console.log("ikko",rute);
+            var lineMain = new google.maps.Polyline({
+                path: rute,
+                strokeOpacity: 0,
+                icons: [{
+                    icon: {
+                        path: 'M 0,-1 0,1',
+                        strokeColor: '#FFF',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 10
+                    },
+                    repeat: '10px'
+                }],
+                map: peta
+            });
+
+            lineMain.setMap(peta);
+        }
+
+        var infowindow = new google.maps.InfoWindow();
+        var markerJalanUtama;
+        function drawMarker(rute,i,msg) {
+
+            markerJalanUtama = new google.maps.Marker({
+                position: rute,
+                map: peta,
+                icon : {
+                    labelOrigin: new google.maps.Point(16,35),
+                    url: "{{base_url()."/assets/imagemain/map-pointer-icon.png"}}"
+                },
+                label: {
+                    text: String(i+1),
+                    color: '#FFF',
+                    fontWeight: 'bold'
+                }
+            });
+
+            google.maps.event.addListener(markerJalanUtama, 'click', (function(markerJalanUtama, i) {
+                return function() {
+                    infowindow.setContent(msg);
+                    infowindow.open(peta, markerJalanUtama);
+                }
+            })(markerJalanUtama, i));
+
+        }
+
+
+        //
+        $(document).ready(function() {
+            $(".OpenRuas").on('click', function(){
+                var idruas = $(this).attr("idruas");
+
+                $.ajax({
+                    url: "{{base_url("main/ruasmap/").$jalan->jalan_id}}/"+idruas,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    dataType: 'json',
+                    beforeSend: function(){
+                    }
+                })
+                .done(function(data){
+                    if (data.Meta.Code == 200){
+
+                    }else{
+                        alert(data.Meta.Message);
+                    }
+                })
+                .fail(function() {
+                    console.log("salah");
+                });
+            });
+        });
+
+
+    </script>
 @endsection
 
 @section('header')
@@ -158,33 +263,15 @@ Dashboard - Administrasi
 								<th>Tipe</th>
 								<th>Kondisi</th>
 								<th>Lebar</th>
-								{{--<th class="text-center">AKSI</th>--}}
 							</tr>
 							</thead>
 							<tbody>
-
 							@foreach($jalanruas as $i => $row)
 								<tr>
-									<td>{{$i+1}}</td>
+									<td>{{$i+1}}.&nbsp;<a href="javascript:void(0)" class="OpenRuas" idruas="{{$row->jalan_kondisi_id}}"><i class="icon-eye8"></i></a></td>
 									<td>{{$row->jalan_kondisi_tipe}}</td>
 									<td>{{$row->jalan_kondisi_nama}}</td>
 									<td>{{$row->jalan_kondisi_lebar}}</td>
-									{{--<td>--}}
-										{{--<div class="btn-group">--}}
-											{{--<button type="button" class="btn btn-primary btn-sm btn-rounded dropdown-toggle" data-toggle="dropdown"><i class="icon-cog5 position-left"></i> Action <span class="caret"></span></button>--}}
-											{{--<ul class="dropdown-menu dropdown-menu-right">--}}
-												{{--<li>--}}
-													{{--<a href="{{base_url('main/detailjalan/'.$row->jalan_id)}}">--}}
-														{{--<i class="icon-cog5"></i> Detail Ruas Jalan--}}
-													{{--</a>--}}
-												{{--</li>--}}
-												{{--<li><a href="{{base_url('main/detailjalan/'.$row->jalan_id)}}">--}}
-														{{--<i class="icon-cog5"></i> Informasi Ruas--}}
-													{{--</a>--}}
-												{{--</li>--}}
-											{{--</ul>--}}
-										{{--</div>--}}
-									{{--</td>--}}
 								</tr>
 							@endforeach
 							</tbody>
@@ -193,9 +280,14 @@ Dashboard - Administrasi
 				</div>
 			</div>
 			<div class="col-lg-6">
+                <div class="row">
+                    <a href="{{base_url('main/fotojalan/'.$jalan->jalan_id)}}"><button>Foto</button></a>
+                </div>
+                <div class="row">
+                    <div id="map" class="panel panel-flat" style="width:100%;height:600px;"></div>
+                    <div id="legend"></div>
+                </div>
 
-				<div id="map" style="width:100%;height:600px;"></div>
-				<div id="legend"></div>
 			</div>
 		</div>
 

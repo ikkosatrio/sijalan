@@ -86,7 +86,7 @@
 
 					<ul class="dropdown-menu width-200">
 						<li><a href="{{base_url('main/user')}}"><i class="icon-user"></i> Data User</a></li>
-						<li><a href="starters/layout_sidebar_sticky.html"><i class="icon-flip-vertical3"></i> Sticky sidebar</a></li>
+
 					</ul>
 				</li>
 			</ul>

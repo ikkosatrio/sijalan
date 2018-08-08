@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_jalan extends CI_Model {
+class M_jalankondisidetail extends CI_Model {
 
 	public $variable;
 
@@ -20,7 +20,8 @@ class M_jalan extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function detail($where,$table){	
+	function detail($where,$table){
+        $this->db->order_by("jalan_kondisi_update", "asc");
 		return $this->db->get_where($table,$where);
 	}
 
@@ -40,17 +41,11 @@ class M_jalan extends CI_Model {
 		$this->db->delete($table);
 	}
 
-	function detailmap($where,$table){
+    function ruaskondisi($where,$table){
         $this->db->from($table);
-        $this->db->join('jalan_pointer','jalan.jalan_id=jalan_pointer.jalan_id');
+        $this->db->join('jalan_kondisi','jalan_kondisi.jalan_kondisi_id=jalan_kondisi_detail.jalan_kondisi_id');
         $this->db->where($where);
-        $this->db->order_by("jalan_pointer_id", "asc");
-        return $query = $this->db->get();
-    }
-
-    function getfoto($where,$table){
-        $this->db->from($table);
-        $this->db->where($where);
+        $this->db->order_by("jalan_kondisi_detail_id", "asc");
         return $query = $this->db->get();
     }
 
