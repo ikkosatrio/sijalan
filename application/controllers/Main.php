@@ -182,6 +182,15 @@ class Main extends CI_Controller {
         echo $this->blade->nggambar('main/photo.index',$data);
     }
 
+    function informasi_ruas($id){
+    	$data           = $this->data;
+    	$where = array(
+            'jalan_id' => $id
+        );
+		$data['user']   = $this->m_config->info_ruas('jalan',$where)->result();
+		$data['menu']   = "home";
+		echo $this->blade->nggambar('main/ruasjalan.info_ruas',$data);
+    }
 }
 
 /* End of file Main.php */
