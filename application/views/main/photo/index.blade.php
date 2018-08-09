@@ -49,7 +49,7 @@ Dashboard - Administrasi
                             <div class="col-lg-2 col-sm-4">
                                 <div class="thumbnail">
                                     <div class="thumb">
-                                        <a data-fancybox="gallery" href="http://pubmlamongan.com/{{$photo->jalan_foto_path}}" data-caption="{{$photo->jalan_foto_keterangan}}"><img src="http://pubmlamongan.com/{{$photo->jalan_foto_path}}"></a>
+                                        <a data-fancybox="gallery" href="http://pubmlamongan.com/{{$photo->jalan_foto_path}}" data-caption="{{$photo->jalan_foto_keterangan}}"><img style="height: 150px;" src="http://pubmlamongan.com/{{$photo->jalan_foto_path}}"></a>
                                     </div>
                                 </div>
                             </div>

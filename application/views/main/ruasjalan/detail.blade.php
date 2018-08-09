@@ -74,7 +74,6 @@ Dashboard - Administrasi
 
 
         function drawRute(rute) {
-            console.log("ikko",rute);
             var lineMain = new google.maps.Polyline({
                 path: rute,
                 strokeOpacity: 0,
@@ -90,13 +89,12 @@ Dashboard - Administrasi
                 map: peta
             });
 
-            lineMain.setMap(peta);
+            // lineMain.setMap(peta);
         }
 
         var infowindow = new google.maps.InfoWindow();
         var markerJalanUtama;
         function drawMarker(rute,i,msg) {
-
             markerJalanUtama = new google.maps.Marker({
                 position: rute,
                 map: peta,
@@ -120,10 +118,35 @@ Dashboard - Administrasi
 
         }
 
+        var infowindowRuas = new google.maps.InfoWindow();
+        var markerRuas;
+        function drawMarkerRuas(rute,i,msg) {
+            markerRuas = new google.maps.Marker({
+                position: rute,
+                map: peta,
+                icon : "{{base_url()."assets/imagemain/map-marker-icon.png"}}",
+                // label: {
+                //     text: String(i+1),
+                //     color: '#FFF',
+                //     fontWeight: 'bold'
+                // }
+            });
+
+            console.log("ikkp",markerRuas);
+
+            google.maps.event.addListener(markerRuas, 'click', (function(markerRuas, i) {
+                return function() {
+                    infowindowRuas.setContent(msg);
+                    infowindowRuas.open(peta, markerRuas);
+                }
+            })(markerRuas, i));
+        }
+
 
         //
         $(document).ready(function() {
             $(".OpenRuas").on('click', function(){
+                console.log("INI",$('#tableKondisi tbody tr').remove());
                 var idruas = $(this).attr("idruas");
 
                 $.ajax({
@@ -137,7 +160,27 @@ Dashboard - Administrasi
                 })
                 .done(function(data){
                     if (data.Meta.Code == 200){
+                        var datas = data.Data;
+                        var datasCoordinates = [];
+                        peta.setCenter(new google.maps.LatLng(datas[0].jalan_kondisi_detail_lat, datas[0].jalan_kondisi_detail_lng));
 
+                        for (var i = 0;i<datas.length;i++){
+                            var latlng = new google.maps.LatLng(datas[i].jalan_kondisi_detail_lat,datas[i].jalan_kondisi_detail_lng);
+                            var text = datas[i].jalan_kondisi_tipe+"-"+datas[i].jalan_kondisi_nama+" | "+datas[i].jalan_kondisi_detail_lat+","+datas[i].jalan_kondisi_detail_lng;
+                            datasCoordinates.push(latlng);
+                            // alert(text)
+                            $('#tableKondisi tbody').append('<tr><td>'+(i+1)+'</td><td>'+datas[i].jalan_kondisi_detail_lat+','+datas[i].jalan_kondisi_detail_lng+'</td><td>'+datas[i].jalan_kondisi_detail_km+'</td></tr');
+                            drawMarkerRuas(latlng,i,text);
+                        }
+                        // alert(datasCoordinates);
+                        drawRuteRuas(datasCoordinates,datas[0].jalan_kondisi_nama);
+                        $("#DetailKondisi").show();
+                        var judul = $("#DetailKondisi").find("#judulKondisi");
+                        // var table = $("#DetailKondisi").find("#tableKondisi");
+                        judul.html(datas[0].jalan_kondisi_tipe+" "+datas[0].jalan_kondisi_nama);
+
+
+                        // console.log("ikko",table);
                     }else{
                         alert(data.Meta.Message);
                     }
@@ -148,7 +191,42 @@ Dashboard - Administrasi
             });
         });
 
+        function drawRuteRuas(rute,kondisi) {
+            console.log("Ikko",kondisi);
+            var lineRuas = new google.maps.Polyline({
+                path: rute,
+                strokeColor: colorKondisi(kondisi),
+                strokeOpacity: 0.8,
+                strokeWeight: 10,
+                map: peta,
+                visible: true
+            });
 
+            console.log(peta);
+        }
+
+        function colorKondisi(kondisi) {
+            var color = "#FFF";
+            switch(kondisi) {
+                case "BAIK":
+                    color = "#009900";
+                    break;
+                case "RUSAK RINGAN":
+                    color = "#FF0";
+                    break;
+                case "RUSAK SEDANG":
+                    color = "#F60";
+                    break;
+                case "RUSAK BERAT":
+                    color = "#F00";
+                    break;
+                default:
+                    color = "#FFF";
+            }
+
+            return color;
+
+        }
     </script>
 @endsection
 
@@ -240,49 +318,92 @@ Dashboard - Administrasi
 				</div>
 			</div>
 			<div class="col-lg-3">
-				<div class="panel panel-flat">
-					<div class="panel-heading">
-						<h5 class="panel-title">RUAS JALAN</h5>
-						<div class="heading-elements">
-							<ul class="icons-list">
-								<li><a data-action="collapse"></a></li>
-								{{--<li><a data-action="close"></a></li>--}}
-							</ul>
-						</div>
-					</div>
+				<div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">RUAS JALAN</h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                    {{--<li><a data-action="close"></a></li>--}}
+                                </ul>
+                            </div>
+                        </div>
 
-					{{--<div class="panel-body">--}}
-					{{--Starter pages include the most basic components that may help you start your development process - basic grid example, panel, table and form layouts with standard components. Nothing extra.--}}
-					{{--</div>--}}
+                        {{--<div class="panel-body">--}}
+                        {{--Starter pages include the most basic components that may help you start your development process - basic grid example, panel, table and form layouts with standard components. Nothing extra.--}}
+                        {{--</div>--}}
 
-					<div class="table-responsive">
-						<table class="table datatable-basic table-striped table-xs table-responsive table-hover">
-							<thead>
-							<tr>
-								<th>No</th>
-								<th>Tipe</th>
-								<th>Kondisi</th>
-								<th>Lebar</th>
-							</tr>
-							</thead>
-							<tbody>
-							@foreach($jalanruas as $i => $row)
-								<tr>
-									<td>{{$i+1}}.&nbsp;<a href="javascript:void(0)" class="OpenRuas" idruas="{{$row->jalan_kondisi_id}}"><i class="icon-eye8"></i></a></td>
-									<td>{{$row->jalan_kondisi_tipe}}</td>
-									<td>{{$row->jalan_kondisi_nama}}</td>
-									<td>{{$row->jalan_kondisi_lebar}}</td>
-								</tr>
-							@endforeach
-							</tbody>
-						</table>
-					</div>
-				</div>
+                        <div class="table-responsive">
+                            <table class="table datatable-basic table-striped table-xs table-responsive table-hover">
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tipe</th>
+                                    <th>Kondisi</th>
+                                    <th>Lebar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($jalanruas as $i => $row)
+                                    <tr>
+                                        <td>{{$i+1}}.&nbsp;<a href="javascript:void(0)" class="OpenRuas" idruas="{{$row->jalan_kondisi_id}}"><i class="icon-eye8"></i></a></td>
+                                        <td>{{$row->jalan_kondisi_tipe}}</td>
+                                        <td>{{$row->jalan_kondisi_nama}}</td>
+                                        <td>{{$row->jalan_kondisi_lebar}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div id="DetailKondisi" style="display: none" class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title" id="judulKondisi">RUAS JALAN</h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                    {{--<li><a data-action="close"></a></li>--}}
+                                </ul>
+                            </div>
+                        </div>
+
+                        {{--<div class="panel-body">--}}
+                        {{--Starter pages include the most basic components that may help you start your development process - basic grid example, panel, table and form layouts with standard components. Nothing extra.--}}
+                        {{--</div>--}}
+
+                        <div class="table-responsive">
+                            <table id="tableKondisi" class="table table-striped table-xs table-hover">
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Posisi</th>
+                                    <th>KM</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbodyKondisi">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+
 			</div>
 			<div class="col-lg-6">
                 <div class="row">
-                    <a href="{{base_url('main/fotojalan/'.$jalan->jalan_id)}}"><button>Foto</button></a>
+                    <a href="{{base_url('main/fotojalan/'.$jalan->jalan_id)}}">
+                        <button type="button" class="btn bg-primary-400 btn-labeled"><b><i class="icon-camera"></i></b> Foto</button>
+                    </a>
                 </div>
+                <br>
                 <div class="row">
                     <div id="map" class="panel panel-flat" style="width:100%;height:600px;"></div>
                     <div id="legend"></div>
