@@ -29,10 +29,10 @@ Dashboard - Administrasi
 		<!-- Page content -->
 				<div class="panel panel-flat">
 					<div class="panel-heading">
-						<h4 class="panel-title">
-						<button type="button" class="btn btn-success btn-xs">Export <i class="icon-arrow-right14 position-right"></i></button>
-						</h4>
-						<div class="heading-elements">
+                        <legend>
+                        <button type="button" class="btn btn-success btn-xs">Export Laporan<i class="icon-arrow-right14 position-right"></i></button>
+                        </legend>
+                        <div class="heading-elements">
 							<ul class="icons-list">
 		                		<li><a data-action="collapse"></a></li>
 		                		<li><a data-action="reload"></a></li>
@@ -41,7 +41,7 @@ Dashboard - Administrasi
 	                	</div>
 					</div>
 					<div class="table-responsive">
-					<table class="table table-bordered table-striped">
+					<table class="table table-bordered table-striped table-condensed">
 						<thead>
 							<tr>
 							  	<th rowspan="4" style="text-align:center">NO.</th>
@@ -178,13 +178,14 @@ Dashboard - Administrasi
 								<td>{{$result->jalan_nama}}</td>
 								<td>{{$result->jalan_nama_ujung}}</td>
 								<td>
-		                    	@foreach($kecamatan as $kec)
-									<?php if ($kec->kecamatan_nama == $result->kecamatan_1){ ?>
-										{{$kec->kecamatan_nama}}	
-									<?php } ?>
-		                        @endforeach
+    		                    	@foreach($kecamatan as $kec)
+                                        <?php if ($kec->kecamatan_nama == $result->kecamatan_1): ?>
+    								        {{$kec->kecamatan_nama}}	
+                                        <?php endif ?>
+    		                        @endforeach
 								</td>
-								
+                                <td style="text-align:center">{{$result->jalan_panjang2-$result->jalan_panjang1}}</td>
+							</tr>	
 	                        @endforeach
 						</tbody>
 					</table>
