@@ -30,7 +30,7 @@ Dashboard - Administrasi
 				<div class="panel panel-flat">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-						<button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal_form_vertical"><i class="icon-user-plus"></i></button> User Master
+						<button type="button" class="btn btn-success btn-xs">Export <i class="icon-arrow-right14 position-right"></i></button>
 						</h4>
 						<div class="heading-elements">
 							<ul class="icons-list">
@@ -177,6 +177,13 @@ Dashboard - Administrasi
 								<td style="text-align:center">{{$result->jalan_no_ruas}}</td>
 								<td>{{$result->jalan_nama}}</td>
 								<td>{{$result->jalan_nama_ujung}}</td>
+								<td>
+		                    	@foreach($kecamatan as $kec)
+									<?php if ($kec->kecamatan_nama == $result->kecamatan_1){ ?>
+										{{$kec->kecamatan_nama}}	
+									<?php } ?>
+		                        @endforeach
+								</td>
 								
 	                        @endforeach
 						</tbody>

@@ -7,7 +7,6 @@ class M_config extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		
 	}
 
 	function ambil($table,$id){
@@ -22,6 +21,7 @@ class M_config extends CI_Model {
 
 	function tampil_laporan($table){
 		$this->db->from($table);
+		$this->db->join('kecamatan', $table.'.kecamatan_1 = kecamatan.kecamatan_id', 'left');
 		return $query = $this->db->get();
 	}
 

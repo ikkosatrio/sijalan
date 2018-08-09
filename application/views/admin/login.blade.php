@@ -150,7 +150,7 @@
 				ShowNotif('Login Success!',data.msg,'top-center','bg-success');
 				$(block).unblock();
 				var go	= setTimeout(function(){
-					redirect(base_url+'superuser/');
+					redirect(base_url+'main/');
 				},1000);
 			})
 		})

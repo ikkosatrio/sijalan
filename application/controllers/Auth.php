@@ -43,10 +43,10 @@ class Auth extends CI_Controller {
 		}
 
 		$where 	= array(
-					'nm_user' 	=> $this->input->post('user'),
-					'password'	=> md5($this->input->post('pass')),
+					'user_auth_name' 	=> $this->input->post('user'),
+					'user_auth_pass'	=> $this->input->post('pass'),
 				  );
-		$cek = $this->m_login->cek_login("user",$where)->num_rows();
+		$cek = $this->m_login->cek_login("user_auth",$where)->num_rows();
 
 		if($cek<=0){
 			$data['auth']		= false;

@@ -5,7 +5,9 @@ class Main extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-
+		if(!$this->session->userdata('auth')){
+			redirect('auth');
+		}
 		$this->blade->sebarno('ctrl', $this);
 		$this->load->model('m_config');
 		$this->load->model('m_user');
@@ -112,6 +114,7 @@ class Main extends CI_Controller {
 
     function laporan(){
 		$data            = $this->data;
+		$data['kecamatan']   = $this->m_user->tampil_data('kecamatan')->result();
 		$data['laporan'] = $this->m_config->tampil_laporan('jalan')->result();
 		$data['menu']    = "home";
 		echo $this->blade->nggambar('main/laporan.index',$data);

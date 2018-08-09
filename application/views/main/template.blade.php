@@ -57,7 +57,7 @@
 
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
-						<li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+						<li><a href="{{base_url('auth/keluar')}}"><i class="icon-switch2"></i> Logout</a></li>
 					</ul>
 				</li>
 			</ul>
