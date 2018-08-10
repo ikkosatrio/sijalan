@@ -80,10 +80,10 @@
 
 		<div class="navbar-collapse collapse" id="navbar-second-toggle">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="{{base_url('main')}}"><i class="icon-display4 position-left"></i> Home</a></li>
+				<li class="active"><a href="{{base_url('main')}}"><i class="icon-home8 position-left"></i> Home</a></li>
 {{--				<li class=""><a href="{{base_url('main')}}"><i class="icon-display4 position-left"></i> Input Ruas Jalan</a></li>--}}
 				<li class=""><a href="{{base_url('main/ruasjalan')}}"><i class="icon-display4 position-left"></i> Data Ruas Jalan</a></li>
-				<li class=""><a href="{{base_url('main/laporan')}}"><i class="icon-display4 position-left"></i> Laporan</a></li>
+				<li class=""><a href="{{base_url('main/laporan')}}"><i class="icon-books position-left"></i> Laporan</a></li>
 
 
 				<li class="dropdown">

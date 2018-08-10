@@ -30,7 +30,7 @@ class Main extends CI_Controller {
     {
 		$data           = $this->data;
 		$data['user']   = $this->m_user->tampil_data('user_auth')->result();
-		$data['menu']   = "home";
+		$data['menu']   = "user";
 		echo $this->blade->nggambar('main/user.index',$data);
 	}
 
