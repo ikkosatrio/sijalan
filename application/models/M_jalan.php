@@ -68,6 +68,20 @@ class M_jalan extends CI_Model {
         $this->db->where($where);
         return $this->db->get();
     }
+
+    function getruaskondisi($where,$table){
+        $this->db->select('jalan_kondisi_id,MIN(jalan_kondisi_detail_km_manual) as MinKM,MAX(jalan_kondisi_detail_km_manual) as MaxKM');
+        $this->db->from($table);
+        $this->db->where($where);
+        return $this->db->get();
+    }
+
+    function tipekondisi($where,$table){
+	    $this->db->select('jalan_kondisi_tipe,jalan_kondisi_nama');
+        $this->db->from($table);
+        $this->db->where($where);
+        return $this->db->get();
+    }
 }
 
 /* End of file M_user.php */
