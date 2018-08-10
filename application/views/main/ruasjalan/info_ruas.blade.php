@@ -27,10 +27,11 @@ Dashboard - Administrasi
 		                	</ul>
 	                	</div>
 					</div>
-
-					<table class="table table-bordered table-striped">
+                    <div class="table-responsive">
+					    <table class="table table-striped table-xs table-hover">
 						<thead>
 							<tr>
+                                <th></th>
                                 <th colspan="4" style="text-align:center">LASTON (M)</th>
                                 <th colspan="4" style="text-align:center">CBC (M)</th>
                                 <th colspan="4" style="text-align:center">PAVINGSTONE (M)</th>
@@ -39,6 +40,7 @@ Dashboard - Administrasi
                                 <th style="text-align:center">TOTAL PANJANG</th>
                             </tr>
                             <tr>
+                                <th>Lebar</th>
                                 <th style="text-align:center">B</th>
                                 <th style="text-align:center">RR</th>
                                 <th style="text-align:center">RS</th>
@@ -62,6 +64,7 @@ Dashboard - Administrasi
                                 <th style="text-align:center">&nbsp;</th>
                             </tr>
                             <tr>
+                                <th style="text-align:center">a</th>
                                 <th style="text-align:center">b</th>
                                 <th style="text-align:center">c</th>
                                 <th style="text-align:center">d</th>
@@ -86,15 +89,119 @@ Dashboard - Administrasi
                             </tr>
 						</thead>
 						<tbody>
-	                    	@foreach($user as $key => $result)
-							<tr>
-								<td>{{($key+1)}}</td>
-								<td>{{$result->user_auth_id}}</td>
-								
-							</tr>
-	                        @endforeach
+                            @php
+                                $totalLastonB = 0;
+                                $totalLastonRR = 0;
+                                $totalLastonRS = 0;
+                                $totalLastonRB = 0;
+
+                                $totalCBCB = 0;
+                                $totalCBCRR = 0;
+                                $totalCBCRS = 0;
+                                $totalCBCRB = 0;
+
+                                $totalPavingB = 0;
+                                $totalPavingRR = 0;
+                                $totalPavingRS = 0;
+                                $totalPavingRB = 0;
+
+                                $totalLapenB = 0;
+                                $totalLapenRR = 0;
+                                $totalLapenRS = 0;
+                                $totalLapenRB = 0;
+
+                                $totalMakadamB = 0;
+                                $totalMakadamRR = 0;
+                                $totalMakadamRS = 0;
+                                $totalMakadamRB = 0;
+                                $total = 0;
+
+                            @endphp
+                            @foreach($laporan as $lap)
+
+                                @php
+                                    $totalLastonB += $lap->LastonB;
+                                    $totalLastonRR += $lap->LastonRR;
+                                    $totalLastonRS += $lap->LastonRS;
+                                    $totalLastonRB += $lap->LastonRB;
+
+                                    $totalCBCB += $lap->CBCB;
+                                    $totalCBCRR += $lap->CBCRR;
+                                    $totalCBCRS += $lap->CBCRS;
+                                    $totalCBCRB += $lap->CBCRB;
+
+                                    $totalPavingB += $lap->PavingB;
+                                    $totalPavingRR += $lap->PavingRR;
+                                    $totalPavingRS += $lap->PavingRS;
+                                    $totalPavingRB += $lap->LapenRB;
+
+                                    $totalLapenB += $lap->LapenB;
+                                    $totalLapenRR += $lap->LapenRR;
+                                    $totalLapenRS += $lap->LapenRS;
+                                    $totalLapenRB += $lap->LapenRB;
+
+                                    $totalMakadamB += $lap->MakadamB;
+                                    $totalMakadamRR += $lap->MakadamRR;
+                                    $totalMakadamRS += $lap->MakadamRS;
+                                    $totalMakadamRB += $lap->MakadamRB;
+                                    $total += $lap->PanjangRuas;
+
+                                @endphp
+
+                                <tr>
+                                    <td>{{$lap->SumLebar}}</td>
+                                    <td>{{$lap->LastonB}}</td>
+                                    <td>{{$lap->LastonRR}}</td>
+                                    <td>{{$lap->LastonRS}}</td>
+                                    <td>{{$lap->LastonRB}}</td>
+                                    <td>{{$lap->CBCB}}</td>
+                                    <td>{{$lap->CBCRR}}</td>
+                                    <td>{{$lap->CBCRS}}</td>
+                                    <td>{{$lap->CBCRB}}</td>
+                                    <td>{{$lap->PavingB}}</td>
+                                    <td>{{$lap->PavingRR}}</td>
+                                    <td>{{$lap->PavingRS}}</td>
+                                    <td>{{$lap->PavingRB}}</td>
+                                    <td>{{$lap->LapenB}}</td>
+                                    <td>{{$lap->LapenRR}}</td>
+                                    <td>{{$lap->LapenRS}}</td>
+                                    <td>{{$lap->LapenRB}}</td>
+                                    <td>{{$lap->MakadamB}}</td>
+                                    <td>{{$lap->MakadamRR}}</td>
+                                    <td>{{$lap->MakadamRS}}</td>
+                                    <td>{{$lap->MakadamRB}}</td>
+                                    <td>{{$lap->PanjangRuas}}</td>
+                                </tr>
+                            @endforeach
 						</tbody>
+                        <tfoot>
+                        <tr>
+                            <td></td>
+                            <td>{{$totalLastonB}}</td>
+                            <td>{{$totalLastonRR}}</td>
+                            <td>{{$totalLastonRS}}</td>
+                            <td>{{$totalLastonRB}}</td>
+                            <td>{{$totalCBCB}}</td>
+                            <td>{{$totalCBCRR}}</td>
+                            <td>{{$totalCBCRS}}</td>
+                            <td>{{$totalCBCRB}}</td>
+                            <td>{{$totalPavingB}}</td>
+                            <td>{{$totalPavingRR}}</td>
+                            <td>{{$totalPavingRS}}</td>
+                            <td>{{$totalPavingRB}}</td>
+                            <td>{{$totalLapenB}}</td>
+                            <td>{{$totalLapenRR}}</td>
+                            <td>{{$totalLapenRS}}</td>
+                            <td>{{$totalLapenRB}}</td>
+                            <td>{{$totalMakadamB}}</td>
+                            <td>{{$totalMakadamRR}}</td>
+                            <td>{{$totalMakadamRS}}</td>
+                            <td>{{$totalMakadamRB}}</td>
+                            <td>{{$total}}</td>
+                        </tr>
+                        </tfoot>
 					</table>
+                    </div>
 				</div>	
 				<!-- /page content -->
 
@@ -102,68 +209,4 @@ Dashboard - Administrasi
 				</div>
 				<!-- /content area -->
 	</div>
-	<script>
-	jQuery(document).ready(function($){
-        $('.hapus').on('click',function(){
-            var getLink = $(this).attr('href');
-            swal({
-              title: "Are you sure?",
-              text: "You will not be able to recover this imaginary file!",
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#DD6B55",
-              confirmButtonText: "Yes, delete it!",
-              cancelButtonText: "No, cancel plx!",
-              closeOnConfirm: false,
-              closeOnCancel: false
-            },
-            function(isConfirm){
-              if (isConfirm) {
-                swal({
-                title: "Deleted",
-                text: "Data Berhasil Dihapus",
-                type: "success",
-                },function(){
-                window.location.href = getLink
-                });
-              } else {
-                swal("Cancelled", "Your imaginary file is safe :)", "error");
-              }
-            });
-            return false;
-        });
-    });
-	$(function){
-		$('#adduser').on('submit',function(e) {
-        e.preventDefault();
-        var formData = new FormData( $("#adduser")[0]);
-          $.ajax({
-            url: $("#adduser").attr('action'), //nama action script php sobat
-              method:'POST',
-              data:new FormData(this),
-              contentType: false,
-              processData: false,
-              dataType: 'json',
-              success:function(data){
-                console.log(data);
-                if (data.Code == 'Error') {
-                  swal("error!", data.Message, "error");
-                  // alert(data.Message);
-                }else{
-                  swal({
-                  title: "Succes",
-                  // text: data.Message,
-                  type: "success",
-                  },function(){
-                  window.location.href = "{{base_url('main/user')}}"
-                  });
-                }
-              },
-              error:function(data){
-                alert("Gagal Bro")
-              },
-          });
-        });
-	}
-	</script>
 @endsection
