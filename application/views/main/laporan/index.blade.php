@@ -173,6 +173,7 @@ Dashboard - Administrasi
 						<tbody>
 	                    	@foreach($laporan as $key => $result)
 							<tr>
+                                
 								<td style="text-align:center">{{($key+1)}}</td>
 								<td style="text-align:center">{{$result->jalan_no_ruas}}</td>
 								<td>{{$result->jalan_nama}}</td>

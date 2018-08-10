@@ -46,9 +46,9 @@ class Auth extends CI_Controller {
 					'user_auth_name' 	=> $this->input->post('user'),
 					'user_auth_pass'	=> $this->input->post('pass'),
 				  );
-		$cek = $this->m_login->cek_login("user_auth",$where)->num_rows();
+		$cek = $this->m_login->cek_login("user_auth",$where)->row();
 
-		if($cek<=0){
+		if($cek==NULL){
 			$data['auth']		= false;
 			$data['msg']		= "Opss! Nama Pengguna Atau Password Salah";
 			echo json_encode($data);
@@ -56,15 +56,16 @@ class Auth extends CI_Controller {
 		}
 
 		$data_session = array(
-				'nama' => $this->input->post('user'),
-				'auth_name'	=>  $this->input->post('user'),
-				'auth' =>	TRUE,
-				);
+			// 'nama'      => $this->input->post('user'),
+			'auth_name' => $cek->user_auth_name,
+			'id'        => $cek->user_auth_id,
+			'auth'      => TRUE,
+		);
 
 		$this->session->set_userdata($data_session);
 
-		$data['auth']		=	true;
-		$data['msg']		= "Berhasil! Anda Telah Masuk";
+		$data['auth']		= true;
+		$data['msg']		= "Berhasil! selamat datang".$this->session->userdata("auth_name");
 
 		echo json_encode($data);
 		return;
