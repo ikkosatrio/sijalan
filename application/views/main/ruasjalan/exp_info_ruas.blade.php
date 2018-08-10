@@ -1,40 +1,17 @@
-@extends('main.template')
-@section('title')
-Dashboard - Administrasi
-@endsection
-@section('corejs')
-	<script type="text/javascript" src="{{base_url()}}assets/js/plugins/tables/datatables/datatables.min.js"></script>
-	<script type="text/javascript" src="{{base_url()}}assets/js/plugins/forms/selects/select2.min.js"></script>
-	<script type="text/javascript" src="{{base_url()}}assets/js/pages/datatables_basic.js"></script>
-@endsection
-@section('content')
-	<div class="content-wrapper">
-
-				<div class="content">
-					<!-- Dashboard content -->
-
-		<!-- Page content -->
-				<div class="panel panel-flat">
+<?php
+header("Content-type: application/vnd-ms-excel");
+header("Content-Disposition: attachment; filename=info_ruas.xls");
+?>				<div class="panel panel-flat">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-                        <a href="{{base_url('main/export_ruas/'.$id)}}">
-                        <button type="button" class="btn btn-success btn-xs">Export<i class="icon-database-export position-right"></i></button>
-                        </a>
                         @foreach($jalan as $i => $row)
                             Rekap Ruas
                             {{$row->jalan_nama}} - {{$row->jalan_nama_ujung}}
                         @endforeach
 						</h4>
-						<div class="heading-elements">
-							<ul class="icons-list">
-		                		<li><a data-action="collapse"></a></li>
-		                		<li><a data-action="reload"></a></li>
-		                		<li><a data-action="close"></a></li>
-		                	</ul>
-	                	</div>
 					</div>
                     <div class="table-responsive">
-					    <table class="table table-striped table-xs table-hover">
+					    <table border="1">
 						<thead>
 							<tr>
                                 <th></th>
@@ -215,4 +192,3 @@ Dashboard - Administrasi
 				</div>
 				<!-- /content area -->
 	</div>
-@endsection

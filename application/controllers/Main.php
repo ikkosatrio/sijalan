@@ -187,11 +187,14 @@ class Main extends CI_Controller {
     }
 
     function informasi_ruas($id){
-    	$data           = $this->data;
-    	$where = array(
+        $data           = $this->data;
+        $where = array(
             'jalan_kondisi_detail.jalan_id' => $id,
             'jalan_kondisi_detail_km' => '0.000'
         );
+        $data['id'] = $id;
+        $wh = array('jalan_id' => $id);
+        $data['jalan']  = $this->m_user->detail($wh,'jalan')->result();
 
 		$laporan   = $this->m_jalan->laporanruas($where,'jalan_kondisi_detail')->result();
 
@@ -333,6 +336,157 @@ class Main extends CI_Controller {
         $data['laporan'] = $arrLaporan;
 		$data['menu']   = "home";
 		echo $this->blade->nggambar('main/ruasjalan.info_ruas',$data);
+    }
+
+    function export_ruas($id){
+        $data           = $this->data;
+        $where = array(
+            'jalan_kondisi_detail.jalan_id' => $id,
+            'jalan_kondisi_detail_km' => '0.000'
+        );
+
+        $laporan   = $this->m_jalan->laporanruas($where,'jalan_kondisi_detail')->result();
+
+        $wh = array('jalan_id' => $id);
+        $data['jalan']  = $this->m_user->detail($wh,'jalan')->result();
+//      var_dump($laporan);
+//      die();
+
+        $arrLaporan = array();
+        foreach ($laporan as $lap){
+            $where1 = array(
+                'jalan_kondisi_id' => $lap->jalan_kondisi_id
+
+            );
+
+            $lebar = $this->m_jalan->lebar($where1,'jalan_kondisi')->row();
+            $minmax = $this->m_jalan->getruaskondisi($where1,'jalan_kondisi_detail')->row();
+            $tipekondisi = $this->m_jalan->tipekondisi($where1,'jalan_kondisi')->row();
+            $panjang = $minmax->MaxKM - $minmax->MinKM;
+
+            $lap->SumLebar = $lebar->total;
+            $lap->PanjangRuas = $panjang;
+
+            //Laston
+            $lap->LastonB = "";
+            $lap->LastonRR = "";
+            $lap->LastonRS = "";
+            $lap->LastonRB = "";
+
+            if ($tipekondisi->jalan_kondisi_tipe == "LASTON" && $tipekondisi->jalan_kondisi_nama == "BAIK"){
+                $lap->LastonB = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "LASTON" && $tipekondisi->jalan_kondisi_nama == "RUSAK RINGAN"){
+                $lap->LastonRR = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "LASTON" && $tipekondisi->jalan_kondisi_nama == "RUSAK SEDANG"){
+                $lap->LastonRS = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "LASTON" && $tipekondisi->jalan_kondisi_nama == "RUSAK BERAT"){
+                $lap->LastonRB = $panjang * 1000;
+            }
+
+
+            //CBC
+            $lap->CBCB = "";
+            $lap->CBCRR = "";
+            $lap->CBCRS = "";
+            $lap->CBCRB = "";
+
+            if ($tipekondisi->jalan_kondisi_tipe == "CBC" && $tipekondisi->jalan_kondisi_nama == "BAIK"){
+                $lap->CBCB = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "CBC" && $tipekondisi->jalan_kondisi_nama == "RUSAK RINGAN"){
+                $lap->CBCRR = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "CBC" && $tipekondisi->jalan_kondisi_nama == "RUSAK SEDANG"){
+                $lap->CBCRS = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "CBC" && $tipekondisi->jalan_kondisi_nama == "RUSAK BERAT"){
+                $lap->CBCRB = $panjang * 1000;
+            }
+
+            //PAVINGSTONE
+            $lap->PavingB = "";
+            $lap->PavingRR = "";
+            $lap->PavingRS = "";
+            $lap->PavingRB = "";
+
+            if ($tipekondisi->jalan_kondisi_tipe == "PAVINGSTONE" && $tipekondisi->jalan_kondisi_nama == "BAIK"){
+                $lap->PavingB = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "PAVINGSTONE" && $tipekondisi->jalan_kondisi_nama == "RUSAK RINGAN"){
+                $lap->PavingRR = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "PAVINGSTONE" && $tipekondisi->jalan_kondisi_nama == "RUSAK SEDANG"){
+                $lap->PavingRS = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "PAVINGSTONE" && $tipekondisi->jalan_kondisi_nama == "RUSAK BERAT") {
+                $lap->PavingRB = $panjang * 1000;
+            }
+
+            //LAPEN
+            $lap->LapenB = "";
+            $lap->LapenRR = "";
+            $lap->LapenRS = "";
+            $lap->LapenRB = "";
+
+            if ($tipekondisi->jalan_kondisi_tipe == "LAPEN" && $tipekondisi->jalan_kondisi_nama == "BAIK"){
+                $lap->LapenB = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "LAPEN" && $tipekondisi->jalan_kondisi_nama == "RUSAK RINGAN"){
+                $lap->LapenRR = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "LAPEN" && $tipekondisi->jalan_kondisi_nama == "RUSAK SEDANG"){
+                $lap->LapenRS = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "LAPEN" && $tipekondisi->jalan_kondisi_nama == "RUSAK BERAT"){
+                $lap->LapenRB = $panjang * 1000;
+            }
+
+            //MAKADAM
+            $lap->MakadamB = "";
+            $lap->MakadamRR = "";
+            $lap->MakadamRS = "";
+            $lap->MakadamRB = "";
+
+            if ($tipekondisi->jalan_kondisi_tipe == "MAKADAM" && $tipekondisi->jalan_kondisi_nama == "BAIK"){
+                $lap->MakadamB = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "MAKADAM" && $tipekondisi->jalan_kondisi_nama == "RUSAK RINGAN"){
+                $lap->MakadamRR = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "MAKADAM" && $tipekondisi->jalan_kondisi_nama == "RUSAK SEDANG"){
+                $lap->MakadamRS = $panjang * 1000;
+            }
+
+            if ($tipekondisi->jalan_kondisi_tipe == "MAKADAM" && $tipekondisi->jalan_kondisi_nama == "RUSAK BERAT"){
+                $lap->MakadamRB = $panjang * 1000;
+            }
+
+            $arrLaporan[] = $lap;
+        }
+
+//      echo "<pre>";
+//      var_dump($arrLaporan);
+//      die();
+        $data['laporan'] = $arrLaporan;
+        $data['menu']   = "home";
+        echo $this->blade->nggambar('main/ruasjalan.exp_info_ruas',$data);        
     }
 }
 
