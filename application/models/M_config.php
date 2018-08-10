@@ -20,11 +20,20 @@ class M_config extends CI_Model {
 	}
 
 	function tampil_laporan($table){
-		
-
+		$this->db->from($table);
 		// $this->db->join('kecamatan', $table.'.kecamatan_1 = kecamatan.kecamatan_id', 'left');
         $this->db->order_by("jalan_update", "desc");
-		return $query = $this->db->get($table);
+		return $query = $this->db->get();
+	}
+
+	function detil_laporan_1($where,$table){
+		$this->db->select('DISTINCT(jalan_kondisi_detail.jalan_kondisi_id),jalan_kondisi_tipe,jalan_kondisi_nama');
+		return $this->db->get_where($table,$where);
+	}
+
+	function detil_laporan_2($where,$table){
+		$this->db->select('MIN(jalan_kondisi_detail_km_manual), MAX(jalan_kondisi_detail_km_manual)');
+		return $this->db->get_where($table,$where);
 	}
 
 	function info_ruas($table,$where){

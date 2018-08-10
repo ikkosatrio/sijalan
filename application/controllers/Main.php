@@ -113,10 +113,14 @@ class Main extends CI_Controller {
     }
 
     function laporan(){
-		$data            = $this->data;
-		$data['kecamatan']   = $this->m_user->tampil_data('kecamatan')->result();
-		$data['laporan'] = $this->m_config->tampil_laporan('jalan')->result();
-		$data['menu']    = "home";
+		$data              = $this->data;
+		$data['kecamatan'] = $this->m_user->tampil_data('kecamatan')->result();
+		$data['laporan']   = $this->m_config->tampil_laporan('jalan')->result();
+		foreach ($data['laporan'] as $key => $value) {
+			$where = array('jalan_id'=>$value->jalan_id);
+			$data['jalan_kondisi'] = $this->m_user->detail($where,'jalan_kondisi_detail')->result();
+		}
+		$data['menu']      = "home";
 		echo $this->blade->nggambar('main/laporan.index',$data);
     }
 

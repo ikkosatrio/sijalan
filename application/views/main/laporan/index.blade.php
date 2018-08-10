@@ -173,7 +173,53 @@ Dashboard - Administrasi
 						<tbody>
 	                    	@foreach($laporan as $key => $result)
 							<tr>
-                                
+                                <?php 
+                                    $panjang = $result->jalan_panjang2-$result->jalan_panjang1;
+                                    $p_laston_baik_min = 0;
+                                    $p_laston_baik_max = 0;
+                                    $p_laston_rr_min = 0;
+                                    $p_laston_rr_max = 0;
+                                    $p_laston_rs_min = 0;
+                                    $p_laston_rs_max = 0;
+                                    $p_laston_rb_min = 0;
+                                    $p_laston_rb_max = 0;
+                                    
+                                    $p_cbc_baik_min = 0;
+                                    $p_cbc_baik_max = 0;
+                                    $p_cbc_rr_min = 0;
+                                    $p_cbc_rr_max = 0;
+                                    $p_cbc_rs_min = 0;
+                                    $p_cbc_rs_max = 0;
+                                    $p_cbc_rb_min = 0;
+                                    $p_cbc_rb_max = 0;
+                                    
+                                    $p_ps_baik_min = 0;
+                                    $p_ps_baik_max = 0;
+                                    $p_ps_rr_min = 0;
+                                    $p_ps_rr_max = 0;
+                                    $p_ps_rs_min = 0;
+                                    $p_ps_rs_max = 0;
+                                    $p_ps_rb_min = 0;
+                                    $p_ps_rb_max = 0;
+                                    
+                                    $p_lapen_baik_min = 0;
+                                    $p_lapen_baik_max = 0;
+                                    $p_lapen_rr_min = 0;
+                                    $p_lapen_rr_max = 0;
+                                    $p_lapen_rs_min = 0;
+                                    $p_lapen_rs_max = 0;
+                                    $p_lapen_rb_min = 0;
+                                    $p_lapen_rb_max = 0;
+                                    
+                                    $p_mkm_baik_min = 0;
+                                    $p_mkm_baik_max = 0;
+                                    $p_mkm_rr_min = 0;
+                                    $p_mkm_rr_max = 0;
+                                    $p_mkm_rs_min = 0;
+                                    $p_mkm_rs_max = 0;
+                                    $p_mkm_rb_min = 0;
+                                    $p_mkm_rb_max = 0;
+                                ?>
 								<td style="text-align:center">{{($key+1)}}</td>
 								<td style="text-align:center">{{$result->jalan_no_ruas}}</td>
 								<td>{{$result->jalan_nama}}</td>
@@ -185,8 +231,14 @@ Dashboard - Administrasi
                                         <?php endif ?>
     		                        @endforeach
 								</td>
-                                <td style="text-align:center">{{$result->jalan_panjang2-$result->jalan_panjang1}}</td>
-							</tr>	
+                                <td style="text-align:center">{{number_format($panjang,3,'.','')}}</td>
+                                <td>
+                                    <!-- <?php foreach ($jalan_kondisi as $key => $value): ?>
+                                        {{$value->jalan_id}}
+                                    <?php endforeach ?> -->
+                                    <!-- {{$result->jalan_id}} -->
+                                </td>
+                            </tr>	
 	                        @endforeach
 						</tbody>
 					</table>

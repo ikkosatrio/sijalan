@@ -43,9 +43,9 @@ class Auth extends CI_Controller {
 		}
 
 		$where 	= array(
-					'user_auth_name' 	=> $this->input->post('user'),
-					'user_auth_pass'	=> $this->input->post('pass'),
-				  );
+			'user_auth_name' 	=> $this->input->post('user'),
+			'user_auth_pass'	=> $this->input->post('pass'),
+		);
 		$cek = $this->m_login->cek_login("user_auth",$where)->row();
 
 		if($cek==NULL){
