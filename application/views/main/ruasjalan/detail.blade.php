@@ -399,9 +399,16 @@ Dashboard - Administrasi
 			</div>
 			<div class="col-lg-6">
                 <div class="row">
-                    <a href="{{base_url('main/fotojalan/'.$jalan->jalan_id)}}">
-                        <button type="button" class="btn bg-primary-400 btn-labeled"><b><i class="icon-camera"></i></b> Foto</button>
-                    </a>
+                    <div class="col-md-2">
+                        <a href="{{base_url('main/fotojalan/'.$jalan->jalan_id)}}">
+                            <button type="button" class="btn bg-primary-400 btn-labeled"><b><i class="icon-camera"></i></b> Foto</button>
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{base_url('main/informasi_ruas/'.$row->jalan_id)}}">
+                            <button type="button" class="btn bg-primary-400 btn-labeled"><b><i class="icon-file-presentation"></i></b> Informasi Ruas</button>
+                        </a>
+                    </div>
                 </div>
                 <br>
                 <div class="row">

@@ -7,7 +7,7 @@
 	<title>@yield('title')</title>
 
 	<!-- Global stylesheets -->
-	<link rel="shortcut icon" type="image/png" href="{{base_url()}}assets/images/website/config/icon/{{$config->icon}}"/>
+	<link rel="shortcut icon" type="image/png" href="{{base_url()."assets/imagemain/logo.png"}}"/>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="{{base_url()}}assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
 	<link href="{{base_url()}}assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css">
@@ -23,7 +23,11 @@
 	<!-- /global stylesheets -->
 	@yield('style')
 	<!-- Core JS files -->
-
+	<style>
+		.navbar-brand {
+			padding: 0px 20px;
+		}
+	</style>
 
 </head>
 
@@ -32,7 +36,10 @@
 	<!-- Main navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="{{base_url('main')}}"><img src="{{base_url()}}assets/images/website/config/logo/{{$config->logo}}" alt=""></a>
+			<span>
+				<a class="navbar-brand" href="{{base_url('main')}}"><img src="{{base_url()."assets/imagemain/logo.png"}}" style="height: 43px;" alt=""></a>
+				<span style="font-size: xx-large">PEMETAAN LAMONGAN</span>
+			</span>
 			<ul class="nav navbar-nav pull-right visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
 			</ul>
@@ -43,7 +50,7 @@
 
 			</ul>
 
-			<p class="navbar-text"><span class="label bg-success-400">PEMETAAN LAMONGAN</span></p>
+			<p class="navbar-text"><span class="label bg-success-400">ONLINE</span></p>
 
 			<ul class="nav navbar-nav navbar-right">
 

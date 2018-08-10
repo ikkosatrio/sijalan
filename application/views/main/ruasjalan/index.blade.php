@@ -70,12 +70,8 @@ Dashboard - Administrasi
 												<i class="fa fa-map-o" aria-hidden="true"></i> Detail Ruas Jalan
 											</a>
 										</li>
-										<li><a href="{{base_url('main/detailjalan/'.$row->jalan_id)}}">
-												<i class="icon-file-presentation"></i> Informasi Ruas
-											</a>
-										</li>
 										<li><a href="{{base_url('main/informasi_ruas/'.$row->jalan_id)}}">
-												<i class="icon-file-presentation"></i> Mboh Opo
+												<i class="icon-file-presentation"></i> Informasi Ruas
 											</a>
 										</li>
 									</ul>
