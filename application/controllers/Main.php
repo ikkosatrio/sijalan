@@ -185,9 +185,30 @@ class Main extends CI_Controller {
     function informasi_ruas($id){
     	$data           = $this->data;
     	$where = array(
-            'jalan_id' => $id
+            'jalan_kondisi_detail.jalan_id' => $id,
+            'jalan_kondisi_detail_km' => '0.000'
         );
-		$data['user']   = $this->m_config->info_ruas('jalan',$where)->result();
+
+		$laporan   = $this->m_jalan->laporanruas($where,'jalan_kondisi_detail')->result();
+
+//		var_dump($laporan);
+//		die();
+
+		$arrLaporan = array();
+		foreach ($laporan as $lap){
+            $where1 = array(
+                'jalan_kondisi_id' => $lap->jalan_kondisi_id
+
+            );
+            $lap->SumLebar = $this->m_jalan->lebar($where1,'jalan_kondisi')->row()->total;
+
+            $arrLaporan[] = $lap;
+        }
+
+//		echo "<pre>";
+//		var_dump($arrLaporan);
+//		die();
+        $data['laporan'] = $arrLaporan;
 		$data['menu']   = "home";
 		echo $this->blade->nggambar('main/ruasjalan.info_ruas',$data);
     }

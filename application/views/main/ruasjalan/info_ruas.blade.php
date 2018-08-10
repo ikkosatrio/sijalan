@@ -27,10 +27,11 @@ Dashboard - Administrasi
 		                	</ul>
 	                	</div>
 					</div>
-
-					<table class="table table-bordered table-striped">
+                    <div class="table-responsive">
+					    <table class="table table-striped table-xs table-hover">
 						<thead>
 							<tr>
+                                <th></th>
                                 <th colspan="4" style="text-align:center">LASTON (M)</th>
                                 <th colspan="4" style="text-align:center">CBC (M)</th>
                                 <th colspan="4" style="text-align:center">PAVINGSTONE (M)</th>
@@ -39,6 +40,7 @@ Dashboard - Administrasi
                                 <th style="text-align:center">TOTAL PANJANG</th>
                             </tr>
                             <tr>
+                                <th>Lebar</th>
                                 <th style="text-align:center">B</th>
                                 <th style="text-align:center">RR</th>
                                 <th style="text-align:center">RS</th>
@@ -62,6 +64,7 @@ Dashboard - Administrasi
                                 <th style="text-align:center">&nbsp;</th>
                             </tr>
                             <tr>
+                                <th style="text-align:center">a</th>
                                 <th style="text-align:center">b</th>
                                 <th style="text-align:center">c</th>
                                 <th style="text-align:center">d</th>
@@ -86,15 +89,35 @@ Dashboard - Administrasi
                             </tr>
 						</thead>
 						<tbody>
-	                    	@foreach($user as $key => $result)
-							<tr>
-								<td>{{($key+1)}}</td>
-								<td>{{$result->user_auth_id}}</td>
-								
-							</tr>
-	                        @endforeach
+                            @foreach($laporan as $lap)
+                                <tr>
+                                    <td>{{$lap->SumLebar}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
 						</tbody>
 					</table>
+                    </div>
 				</div>	
 				<!-- /page content -->
 
@@ -102,68 +125,4 @@ Dashboard - Administrasi
 				</div>
 				<!-- /content area -->
 	</div>
-	<script>
-	jQuery(document).ready(function($){
-        $('.hapus').on('click',function(){
-            var getLink = $(this).attr('href');
-            swal({
-              title: "Are you sure?",
-              text: "You will not be able to recover this imaginary file!",
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#DD6B55",
-              confirmButtonText: "Yes, delete it!",
-              cancelButtonText: "No, cancel plx!",
-              closeOnConfirm: false,
-              closeOnCancel: false
-            },
-            function(isConfirm){
-              if (isConfirm) {
-                swal({
-                title: "Deleted",
-                text: "Data Berhasil Dihapus",
-                type: "success",
-                },function(){
-                window.location.href = getLink
-                });
-              } else {
-                swal("Cancelled", "Your imaginary file is safe :)", "error");
-              }
-            });
-            return false;
-        });
-    });
-	$(function){
-		$('#adduser').on('submit',function(e) {
-        e.preventDefault();
-        var formData = new FormData( $("#adduser")[0]);
-          $.ajax({
-            url: $("#adduser").attr('action'), //nama action script php sobat
-              method:'POST',
-              data:new FormData(this),
-              contentType: false,
-              processData: false,
-              dataType: 'json',
-              success:function(data){
-                console.log(data);
-                if (data.Code == 'Error') {
-                  swal("error!", data.Message, "error");
-                  // alert(data.Message);
-                }else{
-                  swal({
-                  title: "Succes",
-                  // text: data.Message,
-                  type: "success",
-                  },function(){
-                  window.location.href = "{{base_url('main/user')}}"
-                  });
-                }
-              },
-              error:function(data){
-                alert("Gagal Bro")
-              },
-          });
-        });
-	}
-	</script>
 @endsection
