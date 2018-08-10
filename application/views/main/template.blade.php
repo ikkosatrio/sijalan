@@ -51,7 +51,7 @@
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown">
 						<img src="assets/images/placeholder.jpg" alt="">
-						<span>Victoria</span>
+						<span>{{$ctrl->session->userdata('auth_name')}}</span>
 						<i class="caret"></i>
 					</a>
 
