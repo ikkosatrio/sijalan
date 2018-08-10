@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=info_ruas.xls");
+header("Content-Disposition: attachment; filename=jalan_ruas_detail.xls");
 ?>				<div class="panel panel-flat">
 					<div class="panel-heading">
 						<h4 class="panel-title">
