@@ -18,12 +18,10 @@ Dashboard - Administrasi
 					<div class="panel-heading">
 						<h4 class="panel-title">
                         <a href="{{base_url('main/export_ruas/'.$id)}}">
-                        <button type="button" class="btn btn-success btn-xs">Export<i class="icon-database-export position-right"></i></button>
-                        </a>
                         @foreach($jalan as $i => $row)
-                            Rekap Ruas
-                            {{$row->jalan_nama}} - {{$row->jalan_nama_ujung}}
+                        <button type="button" class="btn btn-success btn-sm">Export Rekap Ruas {{$row->jalan_nama}} - {{$row->jalan_nama_ujung}}<i class="icon-database-export position-right"></i></button>
                         @endforeach
+                        </a>
 						</h4>
 						<div class="heading-elements">
 							<ul class="icons-list">

@@ -36,9 +36,12 @@
 <body class="login-container">
 
 	<!-- Main navbar -->
-	<div class="navbar navbar-inverse">
+<!-- 	<div class="navbar navbar-inverse">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="{{base_url('superuser')}}"><img src="{{base_url()}}assets/images/website/config/logo/{{$config->logo}}" alt=""></a>
+			<a class="navbar-brand" href="">
+			<img src="{{base_url()}}assets/images/website/config/logo/{{$config->logo}}" alt="">
+			<img src="{{base_url()."assets/imagemain/logo.png"}}" style="height: 50px" alt="">
+			</a>
 
 			<ul class="nav navbar-nav pull-right visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -55,7 +58,7 @@
 			</ul>
 		</div>
 	</div>
-	<!-- /main navbar -->
+ -->	<!-- /main navbar -->
 
 
 	<!-- Page container -->
@@ -74,7 +77,7 @@
 					<form id="form-login">
 						<div class="panel panel-body login-form">
 							<div class="text-center">
-								<img class="img-responsive mar-center" style="max-width:100px;height:100px;display:block;margin-left:auto;margin-right:auto;" src="{{base_url()}}assets/images/website/config/icon/{{$config->icon}}">
+								<img src="{{base_url()."assets/imagemain/logo.png"}}" style="height: 100px" alt="">
 								<h5 class="content-group">Login to your account <small class="display-block">{{$config->name}}</small></h5>
 							</div>
 

@@ -117,9 +117,6 @@ class Main extends CI_Controller {
 		$data['kecamatan'] = $this->m_user->tampil_data('kecamatan')->result();
 		$laporanJalan = $this->m_jalan->tampil_laporan('jalan')->result();
 
-
-
-
 		$arrLaporan = array();
 		foreach ($laporanJalan as $key => $lap) {
             $where1 = array(
@@ -281,6 +278,174 @@ class Main extends CI_Controller {
 		$data['menu']      = "laporan";
 		$data['laporan'] = $arrLaporan;
 		echo $this->blade->nggambar('main/laporan.index',$data);
+    }
+
+        function export_laporan(){
+        $data              = $this->data;
+        $data['kecamatan'] = $this->m_user->tampil_data('kecamatan')->result();
+        $laporanJalan = $this->m_jalan->tampil_laporan('jalan')->result();
+
+        $arrLaporan = array();
+        foreach ($laporanJalan as $key => $lap) {
+            $where1 = array(
+                'jalan_kondisi_detail.jalan_id' => $lap->jalan_id
+            );
+            $lap->Kecamatan1 = $this->m_jalan->getkecamatan(array('kecamatan_id' => $lap->kecamatan_1),'kecamatan')->row();
+            $lap->Kecamatan2 = $this->m_jalan->getkecamatan(array('kecamatan_id' => $lap->kecamatan_2),'kecamatan')->row();
+            $lap->Kecamatan3 = $this->m_jalan->getkecamatan(array('kecamatan_id' => $lap->kecamatan_3),'kecamatan')->row();
+
+
+            $types= $this->m_jalan->typekondisiLaporan($where1,'jalan_kondisi_detail')->result();
+
+
+            $lap->LastonB = 0;
+            $lap->LastonRR = 0;
+            $lap->LastonRS = 0;
+            $lap->LastonRB = 0;
+
+            $lap->CBCB = 0;
+            $lap->CBCRR = 0;
+            $lap->CBCRS = 0;
+            $lap->CBCRB = 0;
+
+            $lap->PavingB = 0;
+            $lap->PavingRR = 0;
+            $lap->PavingRS = 0;
+            $lap->PavingRB = 0;
+
+            $lap->LapenB = 0;
+            $lap->LapenRR = 0;
+            $lap->LapenRS = 0;
+            $lap->LapenRB = 0;
+
+            $lap->MakadamB = 0;
+            $lap->MakadamRR = 0;
+            $lap->MakadamRS = 0;
+            $lap->MakadamRB = 0;
+
+            foreach ($types as $type){
+                $where2 = array(
+                    'jalan_id' => $lap->jalan_id,
+                    'jalan_kondisi_id' => $type->JalanKondisiID
+                );
+                $minmax = $this->m_jalan->kondisiLaporan($where2,'jalan_kondisi_detail')->row();
+                $panjang = $minmax->MaxKM - $minmax->MinKM;
+
+                //Laston
+
+
+                if ($type->jalan_kondisi_tipe == "LASTON" && $type->jalan_kondisi_nama == "BAIK"){
+                    $lap->LastonB = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "LASTON" && $type->jalan_kondisi_nama == "RUSAK RINGAN"){
+                    $lap->LastonRR = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "LASTON" && $type->jalan_kondisi_nama == "RUSAK SEDANG"){
+                    $lap->LastonRS = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "LASTON" && $type->jalan_kondisi_nama == "RUSAK BERAT"){
+                    $lap->LastonRB = $panjang;
+                }
+
+
+                //CBC
+
+
+                if ($type->jalan_kondisi_tipe == "CBC" && $type->jalan_kondisi_nama == "BAIK"){
+                    $lap->CBCB = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "CBC" && $type->jalan_kondisi_nama == "RUSAK RINGAN"){
+                    $lap->CBCRR = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "CBC" && $type->jalan_kondisi_nama == "RUSAK SEDANG"){
+                    $lap->CBCRS = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "CBC" && $type->jalan_kondisi_nama == "RUSAK BERAT"){
+                    $lap->CBCRB = $panjang;
+                }
+
+                //PAVINGSTONE
+
+
+                if ($type->jalan_kondisi_tipe == "PAVINGSTONE" && $type->jalan_kondisi_nama == "BAIK"){
+                    $lap->PavingB = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "PAVINGSTONE" && $type->jalan_kondisi_nama == "RUSAK RINGAN"){
+                    $lap->PavingRR = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "PAVINGSTONE" && $type->jalan_kondisi_nama == "RUSAK SEDANG"){
+                    $lap->PavingRS = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "PAVINGSTONE" && $type->jalan_kondisi_nama == "RUSAK BERAT") {
+                    $lap->PavingRB = $panjang;
+                }
+
+                //LAPEN
+
+
+                if ($type->jalan_kondisi_tipe == "LAPEN" && $type->jalan_kondisi_nama == "BAIK"){
+                    $lap->LapenB = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "LAPEN" && $type->jalan_kondisi_nama == "RUSAK RINGAN"){
+                    $lap->LapenRR = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "LAPEN" && $type->jalan_kondisi_nama == "RUSAK SEDANG"){
+                    $lap->LapenRS = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "LAPEN" && $type->jalan_kondisi_nama == "RUSAK BERAT"){
+                    $lap->LapenRB = $panjang;
+                }
+
+                //MAKADAM
+
+
+                if ($type->jalan_kondisi_tipe == "MAKADAM" && $type->jalan_kondisi_nama == "BAIK"){
+                    $lap->MakadamB = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "MAKADAM" && $type->jalan_kondisi_nama == "RUSAK RINGAN"){
+                    $lap->MakadamRR = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "MAKADAM" && $type->jalan_kondisi_nama == "RUSAK SEDANG"){
+                    $lap->MakadamRS = $panjang;
+                }
+
+                if ($type->jalan_kondisi_tipe == "MAKADAM" && $type->jalan_kondisi_nama == "RUSAK BERAT"){
+                    $lap->MakadamRB = $panjang;
+                }
+
+            }
+
+//            $tipekondisi = $this->m_jalan->tipekondisi($where1,'jalan_kondisi')->row();
+//            $panjang = $minmax->MaxKM - $minmax->MinKM;
+//            $lap->Panjang = $panjang;
+
+
+
+            $arrLaporan[] = $lap;
+        }
+
+//        echo "<pre>";
+//        var_dump($arrLaporan);
+//        die();
+
+
+        $data['menu']      = "laporan";
+        $data['laporan'] = $arrLaporan;
+        echo $this->blade->nggambar('main/laporan.export',$data);
     }
 
     function ruasmap($idjalan,$idruas){

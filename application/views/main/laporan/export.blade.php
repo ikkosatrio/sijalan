@@ -1,14 +1,7 @@
-@extends('main.template')
-@section('title')
-Dashboard - Administrasi
-@endsection
-@section('corejs')
-	<script type="text/javascript" src="{{base_url()}}assets/js/plugins/tables/datatables/datatables.min.js"></script>
-	<script type="text/javascript" src="{{base_url()}}assets/js/plugins/forms/selects/select2.min.js"></script>
-	<script type="text/javascript" src="{{base_url()}}assets/js/pages/datatables_basic.js"></script>
-@endsection
-@section('content')
-	<div class="content-wrapper">
+<?php
+header("Content-type: application/vnd-ms-excel");
+header("Content-Disposition: attachment; filename=rekap_ruas_jalan.xls");
+?>	<div class="content-wrapper">
 
 				<!-- Page header -->
 				<!-- <div class="page-header page-header-default">
@@ -29,19 +22,9 @@ Dashboard - Administrasi
 		<!-- Page content -->
 				<div class="panel panel-flat">
 					<div class="panel-heading">
-                        <legend>
-                        <a href="{{base_url('main/export_laporan/')}}">
-                        <button type="button" class="btn btn-success btn-xs">Export Laporan<i class="icon-arrow-right14 position-right"></i></button>
-                        </a>
-                        </legend>
-                        <div class="heading-elements">
-							<ul class="icons-list">
-		                		<li><a data-action="collapse"></a></li>
-		                	</ul>
-	                	</div>
 					</div>
 					<div class="table-responsive">
-					<table class="table table-bordered datatable-basic table-striped table-condensed">
+					<table border="1" class="table table-bordered datatable-basic table-striped table-condensed">
 						<thead>
 							<tr>
 							  	<th rowspan="4" style="text-align:center">NO.</th>
@@ -250,61 +233,61 @@ Dashboard - Administrasi
                                 @endphp
 
 							    <tr>
-                                    <td>{{$key+1}}</td>
-                                    <td>{{$lap->jalan_no_ruas}}</td>
+                                    <td style="text-align:center;">{{$key+1}}</td>
+                                    <td style="text-align:center;">{{$lap->jalan_no_ruas}}</td>
                                     <td>{{$lap->jalan_nama}}</td>
                                     <td>{{$lap->jalan_nama_ujung}}</td>
                                     <td>{{$namakecamatan}}</td>
-                                    <td>{{number_format($panjang,3,'.','')}}</td>
+                                    <td style="text-align:right;">{{number_format($panjang,3,'.','')}}</td>
 
-                                    <td>{{number_format($lap->LastonB,3,'.','')}}</td>
-                                    <td style="color: red">{{($lap->LastonB > 0)?number_format((($lap->LastonB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="text-align:right;">{{number_format($lap->LastonB,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->LastonB > 0)?number_format((($lap->LastonB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->LastonRR}}</td>
-                                    <td  style="color: red">{{($lap->LastonRR > 0)?number_format((($lap->LastonRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td  style="color: red; text-align:right;">{{($lap->LastonRR > 0)?number_format((($lap->LastonRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->LastonRS}}</td>
-                                    <td  style="color: red">{{($lap->LastonRS > 0)?number_format((($lap->LastonRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td  style="color: red; text-align:right;">{{($lap->LastonRS > 0)?number_format((($lap->LastonRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->LastonRB}}</td>
-                                    <td  style="color: red">{{($lap->LastonRB > 0)?number_format((($lap->LastonRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td  style="color: red; text-align:right;">{{($lap->LastonRB > 0)?number_format((($lap->LastonRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
 
 
                                     <td>{{$lap->CBCB}}</td>
-                                    <td  style="color: red">{{($lap->CBCB > 0)?number_format((($lap->CBCB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td  style="color: red; text-align:right;">{{($lap->CBCB > 0)?number_format((($lap->CBCB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->CBCRR}}</td>
-                                    <td  style="color: red">{{($lap->CBCRR > 0)?number_format((($lap->CBCRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td  style="color: red; text-align:right;">{{($lap->CBCRR > 0)?number_format((($lap->CBCRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->CBCRS}}</td>
-                                    <td  style="color: red">{{($lap->CBCRS > 0)?number_format((($lap->CBCRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td  style="color: red; text-align:right;">{{($lap->CBCRS > 0)?number_format((($lap->CBCRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->CBCRB}}</td>
-                                    <td  style="color: red">{{($lap->CBCRB > 0)?number_format((($lap->CBCRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td  style="color: red; text-align:right;">{{($lap->CBCRB > 0)?number_format((($lap->CBCRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
 
 
                                     <td>{{$lap->PavingB}}</td>
-                                    <td style="color: red">{{($lap->PavingB > 0)?number_format((($lap->PavingB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->PavingB > 0)?number_format((($lap->PavingB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->PavingRR}}</td>
-                                    <td  style="color: red">{{($lap->PavingRR > 0)?number_format((($lap->PavingRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td  style="color: red; text-align:right;">{{($lap->PavingRR > 0)?number_format((($lap->PavingRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->PavingRS}}</td>
-                                    <td style="color: red">{{($lap->PavingRS > 0)?number_format((($lap->PavingRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->PavingRS > 0)?number_format((($lap->PavingRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->PavingRB}}</td>
-                                    <td style="color: red">{{($lap->PavingRB > 0)?number_format((($lap->PavingRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->PavingRB > 0)?number_format((($lap->PavingRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
 
 
                                     <td>{{$lap->LapenB}}</td>
-                                    <td style="color: red">{{($lap->LapenB > 0)?number_format((($lap->LapenB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->LapenB > 0)?number_format((($lap->LapenB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->LapenRR}}</td>
-                                    <td style="color: red">{{($lap->LapenRR > 0)?number_format((($lap->LapenRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->LapenRR > 0)?number_format((($lap->LapenRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->LapenRS}}</td>
-                                    <td style="color: red">{{($lap->LapenRS > 0)?number_format((($lap->LapenRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->LapenRS > 0)?number_format((($lap->LapenRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->LapenRB}}</td>
-                                    <td style="color: red">{{($lap->LapenRB > 0)?number_format((($lap->LapenRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->LapenRB > 0)?number_format((($lap->LapenRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
 
 
                                     <td>{{$lap->MakadamB}}</td>
-                                    <td style="color: red">{{($lap->MakadamB > 0)?number_format((($lap->MakadamB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->MakadamB > 0)?number_format((($lap->MakadamB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->MakadamRR}}</td>
-                                    <td style="color: red">{{($lap->MakadamRR > 0)?number_format((($lap->MakadamRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->MakadamRR > 0)?number_format((($lap->MakadamRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->MakadamRS}}</td>
-                                    <td style="color: red">{{($lap->MakadamRS > 0)?number_format((($lap->MakadamRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->MakadamRS > 0)?number_format((($lap->MakadamRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->MakadamRB}}</td>
-                                    <td style="color: red">{{($lap->MakadamRB > 0)?number_format((($lap->MakadamRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td style="color: red; text-align:right;">{{($lap->MakadamRB > 0)?number_format((($lap->MakadamRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
 
                                 </tr>
 	                        @endforeach
@@ -374,4 +357,3 @@ Dashboard - Administrasi
 				</div>
 				<!-- /content area -->
 	</div>
-	@endsection
