@@ -32,7 +32,7 @@ Dashboard - Administrasi
 	                	</div>
 					</div>
                     <div class="table-responsive">
-					    <table class="table table-striped table-xs table-hover">
+					    <table class="table table-striped datatable-basic table-bordered table-xs table-hover">
 						<thead>
 							<tr>
                                 <th></th>
