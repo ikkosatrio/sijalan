@@ -340,7 +340,7 @@
 
 					<!-- Footer -->
 					<div class="footer text-muted text-center">
-						&copy; <?php echo date("Y"); ?>. <a href="#">KKN JOMBANG 10</a> by <a href="http://untag-sby.ac.id/" target="_blank">Universitas 17 Agustus 1945 Surabaya</a>
+						&copy; <?php echo date("Y"); ?>. <a href="#">Developers Team</a> by <a href="#" target="_blank">Cak Code</a>
 					</div>
 					<!-- /footer -->
 
