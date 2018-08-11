@@ -257,13 +257,10 @@ Dashboard - Administrasi
 
                                     <td>{{number_format($lap->LastonB,3,'.','')}}</td>
                                     <td style="color: red">{{($lap->LastonB > 0)?number_format((($lap->LastonB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
-
                                     <td>{{$lap->LastonRR}}</td>
                                     <td  style="color: red">{{($lap->LastonRR > 0)?number_format((($lap->LastonRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
-
                                     <td>{{$lap->LastonRS}}</td>
                                     <td  style="color: red">{{($lap->LastonRS > 0)?number_format((($lap->LastonRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
-
                                     <td>{{$lap->LastonRB}}</td>
                                     <td  style="color: red">{{($lap->LastonRB > 0)?number_format((($lap->LastonRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
 
@@ -276,6 +273,7 @@ Dashboard - Administrasi
                                     <td  style="color: red">{{($lap->CBCRS > 0)?number_format((($lap->CBCRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
                                     <td>{{$lap->CBCRB}}</td>
                                     <td  style="color: red">{{($lap->CBCRB > 0)?number_format((($lap->CBCRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+
 
                                     <td>{{$lap->PavingB}}</td>
                                     <td style="color: red">{{($lap->PavingB > 0)?number_format((($lap->PavingB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
@@ -309,6 +307,62 @@ Dashboard - Administrasi
                                 </tr>
 	                        @endforeach
 						</tbody>
+                        <tfoot>
+                        <tr style="font-weight: bold;">
+                            <td colspan="5" style="color: black; font-weight: bold;" align="right">Total Panjang Jalan & Presentase</td>
+                            <td>{{$panjang_total}}</td>
+                            <td>{{number_format($totalLastonB,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalLastonB/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalLastonRR,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalLastonRR/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalLapenRS,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalLastonRS/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalLastonRB,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalLastonRB/$panjang_total)*100,3,'.','.')}}</td>
+
+
+                            <td>{{number_format($totalCBCB,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalCBCB/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalCBCRR,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalCBCRR/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalCBCRS,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalCBCRS/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalCBCRR,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalCBCRR/$panjang_total)*100,3,'.','.')}}</td>
+
+
+                            <td>{{number_format($totalPavingB,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalPavingB/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalPavingRR,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalPavingRR/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalPavingRS,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalPavingRS/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalPavingRB,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalPavingRB/$panjang_total)*100,3,'.','.')}}</td>
+
+
+                            <td>{{number_format($totalLapenB,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalLapenB/$panjang_total)*100,3,'.','.')}}</td>
+
+                            <td>{{number_format($totalLapenRR,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalLapenRR/$panjang_total)*100,3,'.','.')}}</td>
+
+                            <td>{{number_format($totalLapenRS,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalLapenRS/$panjang_total)*100,3,'.','.')}}</td>
+
+                            <td>{{number_format($totalLapenRB,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalLapenRB/$panjang_total)*100,3,'.','.')}}</td>
+
+                            <td>{{number_format($totalMakadamB,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalMakadamB/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalMakadamRR,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalMakadamRR/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalMakadamRS,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalMakadamRS/$panjang_total)*100,3,'.','.')}}</td>
+                            <td>{{number_format($totalMakadamRB,3,'.','.')}}</td>
+                            <td style="color: red">{{number_format(($totalMakadamRB/$panjang_total)*100,3,'.','.')}}</td>
+                        </tr>
+                        </tfoot>
 					</table>
 				</div>	
 					</div>
