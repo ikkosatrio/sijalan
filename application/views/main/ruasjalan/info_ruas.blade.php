@@ -148,7 +148,6 @@ Dashboard - Administrasi
                                     $totalMakadamRR += $lap->MakadamRR;
                                     $totalMakadamRS += $lap->MakadamRS;
                                     $totalMakadamRB += $lap->MakadamRB;
-                                    $total += $lap->PanjangRuas;
 
                                 @endphp
 

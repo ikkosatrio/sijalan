@@ -30,6 +30,33 @@ class M_jalan extends CI_Model {
 		return $this->db->get_where($table,$where);
 	}
 
+    function tampil_laporan($table){
+        $this->db->from($table);
+        $this->db->order_by("jalan_update", "desc");
+        return $query = $this->db->get();
+    }
+
+    function getkecamatan($where,$table){
+        $this->db->from($table);
+        $this->db->where($where);
+        return $query = $this->db->get();
+    }
+
+    function kondisiLaporan($where,$table){
+        $this->db->select('MIN(jalan_kondisi_detail_km_manual) as MinKM,MAX(jalan_kondisi_detail_km_manual) as MaxKM');
+        $this->db->from($table);
+        $this->db->where($where);
+        return $this->db->get();
+    }
+
+    function typekondisiLaporan($where,$table){
+        $this->db->select('DISTINCT(jalan_kondisi_detail.jalan_kondisi_id) as JalanKondisiID,jalan_kondisi_tipe,jalan_kondisi_nama');
+        $this->db->join('jalan_kondisi','jalan_kondisi.jalan_kondisi_id=jalan_kondisi_detail.jalan_kondisi_id');
+        $this->db->from($table);
+        $this->db->where($where);
+        return $this->db->get();
+    }
+
 	function update_data($where,$data,$table){
 		$this->db->where($where);
 		$this->db->update($table,$data);

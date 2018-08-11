@@ -39,7 +39,7 @@ Dashboard - Administrasi
 	                	</div>
 					</div>
 					<div class="table-responsive">
-					<table class="table table-bordered table-striped table-condensed">
+					<table class="table table-bordered datatable-basic table-striped table-condensed">
 						<thead>
 							<tr>
 							  	<th rowspan="4" style="text-align:center">NO.</th>
@@ -169,74 +169,144 @@ Dashboard - Administrasi
                             </tr>
 						</thead>
 						<tbody>
-	                    	@foreach($laporan as $key => $result)
-							<tr>
-                                <?php 
-                                    $panjang = $result->jalan_panjang2-$result->jalan_panjang1;
-                                    $p_laston_baik_min = 0;
-                                    $p_laston_baik_max = 0;
-                                    $p_laston_rr_min = 0;
-                                    $p_laston_rr_max = 0;
-                                    $p_laston_rs_min = 0;
-                                    $p_laston_rs_max = 0;
-                                    $p_laston_rb_min = 0;
-                                    $p_laston_rb_max = 0;
-                                    
-                                    $p_cbc_baik_min = 0;
-                                    $p_cbc_baik_max = 0;
-                                    $p_cbc_rr_min = 0;
-                                    $p_cbc_rr_max = 0;
-                                    $p_cbc_rs_min = 0;
-                                    $p_cbc_rs_max = 0;
-                                    $p_cbc_rb_min = 0;
-                                    $p_cbc_rb_max = 0;
-                                    
-                                    $p_ps_baik_min = 0;
-                                    $p_ps_baik_max = 0;
-                                    $p_ps_rr_min = 0;
-                                    $p_ps_rr_max = 0;
-                                    $p_ps_rs_min = 0;
-                                    $p_ps_rs_max = 0;
-                                    $p_ps_rb_min = 0;
-                                    $p_ps_rb_max = 0;
-                                    
-                                    $p_lapen_baik_min = 0;
-                                    $p_lapen_baik_max = 0;
-                                    $p_lapen_rr_min = 0;
-                                    $p_lapen_rr_max = 0;
-                                    $p_lapen_rs_min = 0;
-                                    $p_lapen_rs_max = 0;
-                                    $p_lapen_rb_min = 0;
-                                    $p_lapen_rb_max = 0;
-                                    
-                                    $p_mkm_baik_min = 0;
-                                    $p_mkm_baik_max = 0;
-                                    $p_mkm_rr_min = 0;
-                                    $p_mkm_rr_max = 0;
-                                    $p_mkm_rs_min = 0;
-                                    $p_mkm_rs_max = 0;
-                                    $p_mkm_rb_min = 0;
-                                    $p_mkm_rb_max = 0;
-                                ?>
-								<td style="text-align:center">{{($key+1)}}</td>
-								<td style="text-align:center">{{$result->jalan_no_ruas}}</td>
-								<td>{{$result->jalan_nama}}</td>
-								<td>{{$result->jalan_nama_ujung}}</td>
-								<td>
-    		                    	@foreach($kecamatan as $kec)
-                                        <?php if ($kec->kecamatan_nama == $result->kecamatan_1): ?>
-    								        {{$kec->kecamatan_nama}}	
-                                        <?php endif ?>
-    		                        @endforeach
-								</td>
-                                <td style="text-align:center">{{number_format($panjang,3,'.','')}}</td>
-                                <td>
-                                    <!-- <?php foreach ($jalan_kondisi as $key => $value): ?>
-                                        {{$value->jalan_id}}
-                                    <?php endforeach ?> -->
-                                    <!-- {{$result->jalan_id}} -->
-                                </td>
-                            </tr>	
+                            @php
+                                $panjang_total = "";
+
+                                $totalLastonB = 0;
+                                $totalLastonRR = 0;
+                                $totalLastonRS = 0;
+                                $totalLastonRB = 0;
+
+                                $totalCBCB = 0;
+                                $totalCBCRR = 0;
+                                $totalCBCRS = 0;
+                                $totalCBCRB = 0;
+
+                                $totalPavingB = 0;
+                                $totalPavingRR = 0;
+                                $totalPavingRS = 0;
+                                $totalPavingRB = 0;
+
+                                $totalLapenB = 0;
+                                $totalLapenRR = 0;
+                                $totalLapenRS = 0;
+                                $totalLapenRB = 0;
+
+                                $totalMakadamB = 0;
+                                $totalMakadamRR = 0;
+                                $totalMakadamRS = 0;
+                                $totalMakadamRB = 0;
+                                $total = 0;
+                            @endphp
+	                    	@foreach($laporan as $key => $lap)
+
+                                @php
+
+                                    //susun nama kecamatan
+                                    $namakecamatan =  "";
+                                    if ($lap->Kecamatan1){
+                                        $namakecamatan = $lap->Kecamatan1->kecamatan_nama;
+                                    }
+                                    if ($lap->Kecamatan2){
+                                        $namakecamatan = $namakecamatan.",".$lap->Kecamatan2->kecamatan_nama;
+                                    }
+                                    if ($lap->Kecamatan3){
+                                        $namakecamatan = $namakecamatan.",".$lap->Kecamatan3->kecamatan_nama;
+                                    }
+
+                                    //PANJANG
+                                    $panjang = $lap->jalan_panjang2 - $lap->jalan_panjang1;
+                                    $panjang_total += $panjang;
+
+
+                                    //TIPEJALAN
+
+                                    $totalLastonB += $lap->LastonB;
+                                    $totalLastonRR += $lap->LastonRR;
+                                    $totalLastonRS += $lap->LastonRS;
+                                    $totalLastonRB += $lap->LastonRB;
+
+                                    $totalCBCB += $lap->CBCB;
+                                    $totalCBCRR += $lap->CBCRR;
+                                    $totalCBCRS += $lap->CBCRS;
+                                    $totalCBCRB += $lap->CBCRB;
+
+                                    $totalPavingB += $lap->PavingB;
+                                    $totalPavingRR += $lap->PavingRR;
+                                    $totalPavingRS += $lap->PavingRS;
+                                    $totalPavingRB += $lap->LapenRB;
+
+                                    $totalLapenB += $lap->LapenB;
+                                    $totalLapenRR += $lap->LapenRR;
+                                    $totalLapenRS += $lap->LapenRS;
+                                    $totalLapenRB += $lap->LapenRB;
+
+                                    $totalMakadamB += $lap->MakadamB;
+                                    $totalMakadamRR += $lap->MakadamRR;
+                                    $totalMakadamRS += $lap->MakadamRS;
+                                    $totalMakadamRB += $lap->MakadamRB;
+                                @endphp
+
+							    <tr>
+                                    <td>{{$key+1}}</td>
+                                    <td>{{$lap->jalan_no_ruas}}</td>
+                                    <td>{{$lap->jalan_nama}}</td>
+                                    <td>{{$lap->jalan_nama_ujung}}</td>
+                                    <td>{{$namakecamatan}}</td>
+                                    <td>{{number_format($panjang,3,'.','')}}</td>
+
+                                    <td>{{number_format($lap->LastonB,3,'.','')}}</td>
+                                    <td style="color: red">{{($lap->LastonB > 0)?number_format((($lap->LastonB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+
+                                    <td>{{$lap->LastonRR}}</td>
+                                    <td  style="color: red">{{($lap->LastonRR > 0)?number_format((($lap->LastonRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+
+                                    <td>{{$lap->LastonRS}}</td>
+                                    <td  style="color: red">{{($lap->LastonRS > 0)?number_format((($lap->LastonRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+
+                                    <td>{{$lap->LastonRB}}</td>
+                                    <td  style="color: red">{{($lap->LastonRB > 0)?number_format((($lap->LastonRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+
+
+                                    <td>{{$lap->CBCB}}</td>
+                                    <td  style="color: red">{{($lap->CBCB > 0)?number_format((($lap->CBCB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->CBCRR}}</td>
+                                    <td  style="color: red">{{($lap->CBCRR > 0)?number_format((($lap->CBCRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->CBCRS}}</td>
+                                    <td  style="color: red">{{($lap->CBCRS > 0)?number_format((($lap->CBCRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->CBCRB}}</td>
+                                    <td  style="color: red">{{($lap->CBCRB > 0)?number_format((($lap->CBCRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+
+                                    <td>{{$lap->PavingB}}</td>
+                                    <td style="color: red">{{($lap->PavingB > 0)?number_format((($lap->PavingB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->PavingRR}}</td>
+                                    <td  style="color: red">{{($lap->PavingRR > 0)?number_format((($lap->PavingRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->PavingRS}}</td>
+                                    <td style="color: red">{{($lap->PavingRS > 0)?number_format((($lap->PavingRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->PavingRB}}</td>
+                                    <td style="color: red">{{($lap->PavingRB > 0)?number_format((($lap->PavingRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+
+
+                                    <td>{{$lap->LapenB}}</td>
+                                    <td style="color: red">{{($lap->LapenB > 0)?number_format((($lap->LapenB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->LapenRR}}</td>
+                                    <td style="color: red">{{($lap->LapenRR > 0)?number_format((($lap->LapenRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->LapenRS}}</td>
+                                    <td style="color: red">{{($lap->LapenRS > 0)?number_format((($lap->LapenRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->LapenRB}}</td>
+                                    <td style="color: red">{{($lap->LapenRB > 0)?number_format((($lap->LapenRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+
+
+                                    <td>{{$lap->MakadamB}}</td>
+                                    <td style="color: red">{{($lap->MakadamB > 0)?number_format((($lap->MakadamB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->MakadamRR}}</td>
+                                    <td style="color: red">{{($lap->MakadamRR > 0)?number_format((($lap->MakadamRR)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->MakadamRS}}</td>
+                                    <td style="color: red">{{($lap->MakadamRS > 0)?number_format((($lap->MakadamRS)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+                                    <td>{{$lap->MakadamRB}}</td>
+                                    <td style="color: red">{{($lap->MakadamRB > 0)?number_format((($lap->MakadamRB)/$panjang)*100,3,'.',''):number_format(0,3,'.','')}}</td>
+
+                                </tr>
 	                        @endforeach
 						</tbody>
 					</table>
@@ -248,68 +318,4 @@ Dashboard - Administrasi
 				</div>
 				<!-- /content area -->
 	</div>
-	<script>
-	jQuery(document).ready(function($){
-        $('.hapus').on('click',function(){
-            var getLink = $(this).attr('href');
-            swal({
-              title: "Are you sure?",
-              text: "You will not be able to recover this imaginary file!",
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#DD6B55",
-              confirmButtonText: "Yes, delete it!",
-              cancelButtonText: "No, cancel plx!",
-              closeOnConfirm: false,
-              closeOnCancel: false
-            },
-            function(isConfirm){
-              if (isConfirm) {
-                swal({
-                title: "Deleted",
-                text: "Data Berhasil Dihapus",
-                type: "success",
-                },function(){
-                window.location.href = getLink
-                });
-              } else {
-                swal("Cancelled", "Your imaginary file is safe :)", "error");
-              }
-            });
-            return false;
-        });
-    });
-	$(function){
-		$('#adduser').on('submit',function(e) {
-        e.preventDefault();
-        var formData = new FormData( $("#adduser")[0]);
-          $.ajax({
-            url: $("#adduser").attr('action'), //nama action script php sobat
-              method:'POST',
-              data:new FormData(this),
-              contentType: false,
-              processData: false,
-              dataType: 'json',
-              success:function(data){
-                console.log(data);
-                if (data.Code == 'Error') {
-                  swal("error!", data.Message, "error");
-                  // alert(data.Message);
-                }else{
-                  swal({
-                  title: "Succes",
-                  // text: data.Message,
-                  type: "success",
-                  },function(){
-                  window.location.href = "{{base_url('main/user')}}"
-                  });
-                }
-              },
-              error:function(data){
-                alert("Gagal Bro")
-              },
-          });
-        });
-	}
-	</script>
-@endsection
+	@endsection
